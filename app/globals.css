@@ -16,7 +16,10 @@
   background-image: url("../public/maxresdefault.jpg");
   background-size: cover;
 }
-
+.contrastImg {
+  -webkit-filter: contrast(0) sepia(100%) hue-rotate(190deg) saturate(2000%) brightness(0%);
+  filter: contrast(0) sepia(100%) hue-rotate(190deg) saturate(2000%) brightness(0%);
+}
 .landingpage{
     background-image: url("../public/3d-abstract-wave-pattern-background.jpg");
     background-size: cover;

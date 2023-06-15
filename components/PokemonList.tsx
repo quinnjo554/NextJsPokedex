@@ -95,16 +95,16 @@ function PokemonList({ id }: PokemonProps) {
   return (
     <ChakraProvider>
       <Box mt={16} p={10}>
-        <InputGroup className="fixed left-1/3">
+        <InputGroup className="fixed left-[10%]">
           <Input
             variant="filled"
             placeholder="Search For Pokemon"
-            w={500}
+            w={300}
             onChange={handleInputChange}
           />
         </InputGroup>
         {showFilter ? (
-          <div className="fixed left-1/3 max-h-24">
+          <div className="fixed left-[10%] max-h-24">
             <UnorderedList
               listStyleType="none"
               className="bg-white overflow-scroll border border-gray-300 rounded-md shadow-md w-[500px] max-h-72"

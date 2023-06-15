@@ -12,50 +12,67 @@ import {
   Input,
   Flex,
 } from "@chakra-ui/react";
-import { useRandomPokemon } from "@/getFunctions/getFunctions";
+import { useAllPokemon, useRandomPokemon } from "@/getFunctions/getFunctions";
 
 function WhosThatPokemon() {
   const [inputValue, setInputValue] = useState("");
   const [guessed, setGuessed] = useState(false);
-  const [pokemonData, setPokemonData] = useState<pokemon | undefined>(
-    undefined
-  );
+  const [pokemonData, setPokemonData] = useState<pokemon>();
+  const [isBlurred, setIsBlurred] = useState(true);
   const [responseText, setResponseText] = useState("");
   const [score, setScore] = useState(0);
-  const { data, isLoading, isError } = useRandomPokemon();
-
-  //Fix next button so it only appears when u click guess and its right
-
+  const [canProceed, setCanProceed] = useState(false);
+  const [pokemonArray, setPokemonArray] = useState<Array<pokemon>>([]);
+  const { data, isLoading, isError, refetch } = useRandomPokemon();
+  const {
+    data: allPokemon,
+    isLoading: allLoading,
+    isError: allError,
+  } = useAllPokemon();
   useEffect(() => {
     if (data) {
       setPokemonData(data);
     }
-  }, [data]);
+  }, [data, score]);
+
+  useEffect(() => {
+    if (allPokemon) {
+      setPokemonArray(allPokemon["content"]);
+    }
+  }, [allPokemon]);
+
+  const filteredSearch = pokemonArray.filter((item: pokemon) =>
+    item.name.toLowerCase().includes(inputValue.toLowerCase())
+  );
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
   const handleGuess = () => {
+    setIsBlurred(false);
     if (pokemonData) {
       if (inputValue.toLowerCase() === pokemonData?.name.toLowerCase()) {
         setResponseText("You Got It");
         setScore((prev) => prev + 1);
+        setGuessed(true);
       } else {
         setResponseText("Incorrect guess!");
       }
-      setGuessed(true);
     }
   };
 
   const handleNext = () => {
     setInputValue("");
+    setIsBlurred(true);
     setGuessed(false);
     setResponseText("");
+    setCanProceed(true);
+    refetch();
   };
 
   if (isLoading) {
-    return <Spinner></Spinner>;
+    return <Spinner />;
   }
 
   return (
@@ -67,10 +84,18 @@ function WhosThatPokemon() {
         justifyContent="center"
         flexDirection="column"
       >
+        <Text className="text-black" fontSize="2xl">
+          Score: {score}
+        </Text>
         <Image
+          className={`translate-x-[-27rem] ${
+            isBlurred ? `contrastImg` : `filter-none`
+          } transition-all ease-in-out`}
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData?.id}.png`}
         />
-        <p>Score: {score}</p>
+        <Text className=" text-black" fontSize="2xl">
+          {pokemonData?.description.replace(pokemonData.name, "-------")}
+        </Text>
         <Box className="fixed bottom-28">
           <Input
             placeholder="Enter your guess"
@@ -79,17 +104,26 @@ function WhosThatPokemon() {
             onChange={handleInputChange}
             w={500}
           />
-
+          {inputValue && (
+            <Box h={100} overflowY="auto" borderWidth={1} p={2}>
+              <Text>
+                {filteredSearch.map((value, index) => (
+                  <li key={index}>{value.name}</li>
+                ))}
+              </Text>
+            </Box>
+          )}
+          {!guessed && (
+            <Button onClick={handleGuess} disabled={guessed}>
+              Guess
+            </Button>
+          )}
           {guessed && (
             <>
               <Button onClick={handleNext}>Next</Button>
-              <p>{responseText}</p>
             </>
           )}
-
-          <Button onClick={handleGuess} disabled={inputValue === ""}>
-            Guess
-          </Button>
+          <p>{responseText}</p>
         </Box>
       </Flex>
     </ChakraProvider>

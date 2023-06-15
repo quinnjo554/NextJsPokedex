@@ -46,11 +46,6 @@ function LandingNav(props: { hasButtons: boolean }) {
                   Whos That Pokemon
                 </li>
               </Link>
-              <Link href={"/"}>
-                <li className="mr-3 bg-blue-500 p-2 text-white rounded-md">
-                  Battle Arena
-                </li>
-              </Link>
               <Link href={`http://localhost:3000/pokedex/${id}`}>
                 <li className="mr-3 bg-blue-500 p-2 text-white rounded-md">
                   <button disabled={isLoading}>Random Pokemon</button>
