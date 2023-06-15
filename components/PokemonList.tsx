@@ -5,7 +5,6 @@ import {
   getNextPageNumber,
   useAllPokemon,
 } from "@/getFunctions/getFunctions";
-
 import Pokeball from "../public/file-pokeball-png-0.png";
 import PokemonScreen from "../public/pokémon-minimalism-pixel-art-nintendo-wallpaper-preview.jpg";
 import {
@@ -18,9 +17,11 @@ import {
   List,
   ListItem,
   UnorderedList,
+  Flex,
 } from "@chakra-ui/react";
 import Arrow from "../public/icons8-back-arrow-100.png";
 import Image from "next/image";
+
 function PokemonList({ id }: PokemonProps) {
   const [pokemon, setPokemon] = useState<Array<pokemon>>([]);
   const [allPokemon, setAllPokemon] = useState<Array<pokemon>>([]);
@@ -55,8 +56,6 @@ function PokemonList({ id }: PokemonProps) {
     fairy: "bg-pink-300",
   };
 
-  //use input value to filter
-  //add a filter option for abilities and type
   const filteredSearch = allPokemon.filter((item) =>
     item.name.toLowerCase().includes(input.toLowerCase())
   );
@@ -95,7 +94,7 @@ function PokemonList({ id }: PokemonProps) {
   return (
     <ChakraProvider>
       <Box mt={16} p={10}>
-        <InputGroup className="fixed left-[10%]">
+        <InputGroup className="fixed left-[40%] w-[200px] inputMobile">
           <Input
             variant="filled"
             placeholder="Search For Pokemon"
@@ -103,18 +102,25 @@ function PokemonList({ id }: PokemonProps) {
             onChange={handleInputChange}
           />
         </InputGroup>
-        {showFilter ? (
-          <div className="fixed left-[10%] max-h-24">
-            <UnorderedList
-              listStyleType="none"
-              className="bg-white overflow-scroll border border-gray-300 rounded-md shadow-md w-[500px] max-h-72"
-            >
+        {showFilter && (
+          <Box
+            className="fixed left-[40%] max-h-24 inputMobile"
+            bg="white"
+            border="1px"
+            borderColor="gray.300"
+            rounded="md"
+            shadow="md"
+            overflowY="scroll"
+            maxW="500px"
+            maxH="72"
+          >
+            <UnorderedList listStyleType="none">
               {filteredSearch.map((value, index) => (
-                <Link href={`http://localhost:3000/pokedex/${value.id}`}>
-                  <ListItem
-                    key={index}
-                    className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                  >
+                <Link
+                  href={`http://localhost:3000/pokedex/${value.id}`}
+                  key={index}
+                >
+                  <ListItem className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
                     <Image
                       src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${value.id}.png`}
                       alt={value.name}
@@ -122,28 +128,30 @@ function PokemonList({ id }: PokemonProps) {
                       height={22}
                       className="mr-2"
                     />
-                    <div className="flex items-center">
+                    <Box className="flex items-center">
                       <span className="mr-2">{value.name}</span>
-                      <div className="flex">
+                      <Flex>
                         {value.types.map((type, typeIndex) => (
-                          <span
+                          <Box
                             key={typeIndex}
-                            className={`px-2 py-1 text-xs rounded-full text-white ${
-                              typeColors[type.name.toLowerCase()]
-                            }`}
+                            px={2}
+                            py={1}
+                            fontSize="xs"
+                            rounded="full"
+                            color="white"
+                            bg={typeColors[type.name]}
+                            mr={1}
                           >
                             {type.name}
-                          </span>
+                          </Box>
                         ))}
-                      </div>
-                    </div>
+                      </Flex>
+                    </Box>
                   </ListItem>
                 </Link>
               ))}
             </UnorderedList>
-          </div>
-        ) : (
-          <></>
+          </Box>
         )}
         <Link
           href={`http://localhost:3000/pokedex/home/${getNextPageNumber(
@@ -157,15 +165,15 @@ function PokemonList({ id }: PokemonProps) {
           <Image
             src={Arrow}
             alt="Pokeball"
-            width={"70"}
-            height={"70"}
+            width={70}
+            height={70}
             className="bg-white rounded-full transition-all ease-in-out hover:bg-transparent"
             onClick={() => {
               setPage((prevPageNum) =>
                 getNextPageNumber(prevPageNum, -1, 0, totalPages)
               );
             }}
-          ></Image>
+          />
         </Link>
         <Link
           href={`http://localhost:3000/pokedex/home/${getNextPageNumber(
@@ -179,19 +187,20 @@ function PokemonList({ id }: PokemonProps) {
           <Image
             src={Arrow}
             alt="Pokeball"
-            width={"70"}
-            height={"70"}
+            width={70}
+            height={70}
             className="bg-white rounded-full rotate-180 transition-all ease-in-out hover:bg-transparent"
             onClick={() => {
               setPage((prevPageNum) =>
                 getNextPageNumber(prevPageNum, 1, 0, totalPages)
               );
             }}
-          ></Image>
+          />
         </Link>
         <Grid
+          className="mobile-center"
           templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-          gap={4}
+          gap={3}
           p={6}
         >
           {pokemon.map((value, index) => {
@@ -201,8 +210,8 @@ function PokemonList({ id }: PokemonProps) {
 
               return (
                 <ListItem
-                  className={`flex px-2 py-0 mr-2 rounded-sm ${backgroundColor} text-center`}
                   key={index}
+                  className={`flex px-2 py-0 mr-2 rounded-sm ${backgroundColor} text-center`}
                   fontSize="sm"
                 >
                   {type.name}
@@ -239,10 +248,10 @@ function PokemonList({ id }: PokemonProps) {
                     width="90"
                     height="110"
                   />
-                  <Box display="flex" justifyContent="space-between">
+                  <Flex justifyContent="space-between">
                     <Box># {value.id}</Box>
                     <List display="flex">{types}</List>
-                  </Box>
+                  </Flex>
                 </Box>
               </Link>
             );

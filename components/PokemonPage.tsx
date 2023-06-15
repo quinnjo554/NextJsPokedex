@@ -1,5 +1,4 @@
 "use client";
-//add pagination, type colors, and fix the sprite
 {
 }
 import { usePokemonById } from "@/getFunctions/getFunctions";

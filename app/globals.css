@@ -28,7 +28,7 @@
 .pokedex{
   background-image: url("../public/tumblr_pev0myaFLh1sqpyoco1_1280.jpeg");
   background-size: cover;
-  height: 93vh;
+  height: 100%;
 }
 
 .pokemon-card:hover {
@@ -57,10 +57,7 @@
   width: 100vw;
   height: 100vh;
   z-index: -10;
-  
 }
-
-
 
 .card{
   z-index: 10;
@@ -168,5 +165,13 @@
   .greeting{
       position: relative;
       left:-10%;
+  }
+}@media (max-width: 768px) {
+  .mobile-center {
+    justify-items: center;
+  }
+  .inputMobile{
+    position: fixed;
+    left: 13%;
   }
 }
