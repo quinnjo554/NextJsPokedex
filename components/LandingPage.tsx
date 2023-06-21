@@ -19,7 +19,7 @@ function LandingPage() {
           <Box className="card-content">
             <Heading className="title">Pokedex</Heading>
             <Text className="card-body">Battle with Your favorite pokemon</Text>
-            <ChakraLink as={Link} href={"/battle/landing"} className="button">
+            <ChakraLink as={Link} href={"/battle"} className="button">
               Battle
             </ChakraLink>
           </Box>

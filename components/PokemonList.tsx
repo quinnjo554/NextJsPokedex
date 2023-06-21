@@ -12,13 +12,21 @@ import {
   Box,
   Input,
   InputGroup,
+  InputRightElement,
+  Button,
   Grid,
   Link,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton,
   List,
   ListItem,
   UnorderedList,
   Flex,
 } from "@chakra-ui/react";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import Arrow from "../public/icons8-back-arrow-100.png";
 import Image from "next/image";
 
@@ -29,7 +37,8 @@ function PokemonList({ id }: PokemonProps) {
   const [totalPages, setTotalPages] = useState(0);
   const [input, setInput] = useState("");
   const [showFilter, setShowFilter] = useState(false);
-  const { data, isLoading, isError } = usePagePokemon(id);
+  const [searchFilter, setSearchFilter] = useState("");
+  const { data, isLoading, isError } = usePagePokemon(id, "32");
   const {
     data: allPokemonData,
     isLoading: allPokemonLoading,
@@ -56,9 +65,24 @@ function PokemonList({ id }: PokemonProps) {
     fairy: "bg-pink-300",
   };
 
-  const filteredSearch = allPokemon.filter((item) =>
-    item.name.toLowerCase().includes(input.toLowerCase())
-  );
+  const filteredSearch = allPokemon.filter((item) => {
+    const lowercaseName = item.name.toLowerCase();
+    const lowercaseInput = input.toLowerCase();
+
+    if (searchFilter === "Type") {
+      return item.types.some((type) =>
+        type.name.toLowerCase().includes(lowercaseInput)
+      );
+    } else if (searchFilter === "Ability") {
+      return item.abilities.some((ability) =>
+        ability.name.toLowerCase().includes(lowercaseInput)
+      );
+    } else if (searchFilter === "Name") {
+      return lowercaseName.includes(lowercaseInput);
+    } else {
+      return lowercaseName.includes(lowercaseInput);
+    }
+  });
 
   useEffect(() => {
     if (data) {
@@ -93,14 +117,39 @@ function PokemonList({ id }: PokemonProps) {
 
   return (
     <ChakraProvider>
-      <Box mt={16} p={10}>
-        <InputGroup className="fixed left-[40%] w-[200px] inputMobile">
+      <Box mt={16} className="" p={10}>
+        <InputGroup className="fixed left-[40%] w-[100px] inputMobile">
           <Input
             variant="filled"
             placeholder="Search For Pokemon"
             w={300}
             onChange={handleInputChange}
           />
+          <InputRightElement className="relative left-[17rem]">
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="Options"
+                icon={<HamburgerIcon />}
+                variant="outline"
+                className="bg-white"
+              />
+              <MenuList className="">
+                <MenuItem value="Type" onClick={() => setSearchFilter("Type")}>
+                  Type
+                </MenuItem>
+                <MenuItem
+                  value="Ability"
+                  onClick={() => setSearchFilter("Ability")}
+                >
+                  Ability
+                </MenuItem>
+                <MenuItem value="Name" onClick={() => setSearchFilter("Name")}>
+                  Name
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </InputRightElement>
         </InputGroup>
         {showFilter && (
           <Box
@@ -139,8 +188,8 @@ function PokemonList({ id }: PokemonProps) {
                             fontSize="xs"
                             rounded="full"
                             color="white"
-                            bg={typeColors[type.name]}
                             mr={1}
+                            className={`${typeColors[type.name]}`}
                           >
                             {type.name}
                           </Box>
@@ -210,7 +259,7 @@ function PokemonList({ id }: PokemonProps) {
 
               return (
                 <ListItem
-                  key={index}
+                  key={value.id}
                   className={`flex px-2 py-0 mr-2 rounded-sm ${backgroundColor} text-center`}
                   fontSize="sm"
                 >
@@ -237,6 +286,7 @@ function PokemonList({ id }: PokemonProps) {
                     <ListItem
                       className="text-center bg-slate-500 rounded-md"
                       px={2}
+                      key={value.id}
                     >
                       {value.name}
                     </ListItem>

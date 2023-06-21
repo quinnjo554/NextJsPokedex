@@ -1,7 +1,14 @@
 "use client";
 {
 }
-import { usePokemonById } from "@/getFunctions/getFunctions";
+import {
+  getAbilities,
+  getPokeIdByName,
+  getPokemonEvolution,
+  useEvolution,
+  usePokemonById,
+  getChatBot,
+} from "@/getFunctions/getFunctions";
 import React, { useEffect, useState, useRef } from "react";
 import { startStarfieldAnimation } from "@/starfield";
 
@@ -25,6 +32,20 @@ import {
   Grid,
   List,
   ListItem,
+  InputGroup,
+  UnorderedList,
+  Flex,
+  Image,
+  Input,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
 } from "@chakra-ui/react";
 import { Bar } from "react-chartjs-2";
 
@@ -41,8 +62,11 @@ function PokemonPage({ id }: PokemonProps) {
   const [pokeData, setPokemonData] = useState<pokemon>();
   const [spriteRender, setSpriteRender] = useState(``);
   const [background, setBackground] = useState<Array<string>>([]);
+  const [abilitiesDesc, setAbilitiesDesc] = useState<Array<string>>([]);
+  const [chatText, setChatText] = useState("");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { data: pokemonData, isLoading, isError } = usePokemonById(id);
+  const inputRef = useRef<HTMLInputElement>(null);
   const options = {
     responsive: true,
     plugins: {
@@ -122,6 +146,37 @@ function PokemonPage({ id }: PokemonProps) {
   useEffect(() => {
     startStarfieldAnimation(canvasRef);
   }, []);
+
+  async function handleOnClick() {
+    const inputValue = inputRef.current?.value + "answer as pokedex";
+    if (inputValue) {
+      const data: ChatResponse = await getChatBot(inputValue);
+      if (data && data.data) {
+        setChatText(data["data"]["data"]["conversation"]["output"]);
+        console.log(data);
+      } else {
+        console.error("Invalid response format");
+      }
+    }
+  }
+
+  useEffect(() => {
+    async function getPokeAbilities() {
+      if (pokeData && pokeData.abilities) {
+        const abilitiesArray = await Promise.all(
+          pokeData.abilities.map(async (value) => {
+            const abil = await getAbilities(value.name);
+            return abil;
+          })
+        );
+        setAbilitiesDesc(abilitiesArray);
+        console.log(abilitiesArray); //next set [effect][effectname]
+      }
+    }
+
+    getPokeAbilities();
+  }, [pokeData]);
+
   useEffect(() => {
     if (pokemonData) {
       const color = typeColors[pokemonData.types[0].name] || "bg-gray-200";
@@ -133,13 +188,39 @@ function PokemonPage({ id }: PokemonProps) {
       );
       setPokemonData(pokemonData);
     }
-  }, [pokemonData, id]);
+  }, [pokemonData]);
+
+  if (isError) {
+    return <p>Hold up</p>;
+  }
 
   return (
     <ChakraProvider>
       <Box mx="auto" px={["4", "6", "8"]} maxW="3xl" mt="12" color="white">
         <canvas ref={canvasRef} className="starfield-canvas-pokemon bg-black" />
-
+        <div className="fixed left-6 top-0">
+          {/**make the input group go to the bottom as the screeen gets smaller or add a button that makes it slide over*/}
+          <Popover>
+            <PopoverTrigger>
+              <Text className="bg-white p-2 rounded-md cursor-pointer text-black hover:bg-blue-500">
+                Ask The Pokedex
+              </Text>
+            </PopoverTrigger>
+            <PopoverContent>
+              <PopoverArrow />
+              <PopoverCloseButton className="bg-black" />
+              <PopoverHeader className="text-black overflow-scroll">
+                {chatText}
+              </PopoverHeader>
+              <PopoverBody className="text-black">
+                <InputGroup>
+                  <Input ref={inputRef} />
+                  <Button onClick={handleOnClick}>Ask</Button>
+                </InputGroup>
+              </PopoverBody>
+            </PopoverContent>
+          </Popover>
+        </div>
         <Link href={`http://localhost:3000/pokedex/home/0`}>
           <Heading
             as="h1"
@@ -315,8 +396,6 @@ function PokemonPage({ id }: PokemonProps) {
                     ))}
                   </List>
                 </Box>
-
-                <Box>{/* Rest of the content */}</Box>
               </Grid>
             </Box>
 
@@ -334,7 +413,23 @@ function PokemonPage({ id }: PokemonProps) {
               <List display="flex">
                 {pokeData?.abilities.map((value, index) => (
                   <ListItem className="mr-3" key={index}>
-                    {value.name}
+                    <Popover>
+                      <PopoverTrigger>
+                        <Text className="bg-slate-200 bg-opacity-60 p-1 rounded-md cursor-pointer">
+                          {value.name}
+                        </Text>
+                      </PopoverTrigger>
+                      <PopoverContent>
+                        <PopoverArrow />
+                        <PopoverCloseButton className="bg-black" />
+                        <PopoverHeader className="text-black">
+                          {value.name}
+                        </PopoverHeader>
+                        <PopoverBody className="text-black">
+                          {abilitiesDesc[index]}
+                        </PopoverBody>
+                      </PopoverContent>
+                    </Popover>
                   </ListItem>
                 ))}
               </List>

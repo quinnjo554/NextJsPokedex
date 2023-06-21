@@ -96,7 +96,7 @@ function WhosThatPokemon() {
             isBlurred ? `contrastImg` : `filter-none`
           } transition-all ease-in-out`}
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData?.id}.png`}
-          maxW="80vw" 
+          maxW="80vw"
           h="auto"
         />
         <Text
@@ -107,13 +107,13 @@ function WhosThatPokemon() {
         >
           {pokemonData?.description.replace(pokemonData.name, "-------")}
         </Text>
-        <Box className="fixed bottom-28" maxW="80vw" w="full">
+        <Box className="fixed bottom-14" maxW="80vw" w="full">
           <Input
             placeholder="Enter your guess"
             variant={"filled"}
             value={inputValue}
             onChange={handleInputChange}
-            mb={2} // Add margin bottom
+            mb={2}
           />
           {inputValue && (
             <Box h={100} overflowY="auto" bg="white">
@@ -142,7 +142,7 @@ function WhosThatPokemon() {
               </Button>
             </>
           )}
-          <Text>{responseText}</Text>
+          <Text fontSize="3xl">{responseText}</Text>
         </Box>
       </Flex>
     </ChakraProvider>
