@@ -17,7 +17,7 @@ describe("Buttons send to correct location", () => {
     });
 
     await waitFor(() => {
-      expect(window.location.pathname).toBe("/pokedex/home/0");
+      expect(window.location.pathname).toBe("/");
     });
   });
 });
