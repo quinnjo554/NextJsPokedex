@@ -1,8 +1,6 @@
 import React from "react";
 import { FC } from "react";
-import PokedexPage from "../../home/[id]/page";
-import PokemonPage from "@/components/PokemonPage";
-
+import PokemonPage from "@/components/PokemonPage/PokemonPage";
 
 const Page: FC<PageProps> = ({ params }) => {
   return (

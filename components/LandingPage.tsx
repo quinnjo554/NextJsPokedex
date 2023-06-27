@@ -10,6 +10,8 @@ import {
   Link,
 } from "@chakra-ui/react";
 import LandingNav from "./NavBar";
+//Break up components try not to exceed 100 lines
+
 function LandingPage() {
   return (
     <ChakraProvider>
@@ -19,7 +21,7 @@ function LandingPage() {
           <Box className="card-content">
             <Heading className="title">Pokedex</Heading>
             <Text className="card-body">Battle with Your favorite pokemon</Text>
-            <ChakraLink as={Link} href={"/battle/landing"} className="button">
+            <ChakraLink as={Link} href={"/battle"} className="button">
               Battle
             </ChakraLink>
           </Box>

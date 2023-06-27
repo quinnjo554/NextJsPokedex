@@ -1,12 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
 import Pokeball from "../public/file-pokeball-png-0.png";
 import Image from "next/image";
 import Link from "next/link";
@@ -63,6 +56,12 @@ function LandingNav(props: { hasButtons: boolean }) {
                   </Link>
                   <Link href={`http://localhost:3000/pokedex/${id}`}>
                     <MenuItem className="z-20">Random Pokemon</MenuItem>
+                  </Link>
+                  <Link href={`http://localhost:3000/other`}>
+                    <MenuItem className="z-20">Pokemon Info</MenuItem>
+                  </Link>
+                  <Link href={`http://localhost:3000/weather`}>
+                    <MenuItem>Pokemon Weather</MenuItem>
                   </Link>
                 </MenuList>
               </Menu>
