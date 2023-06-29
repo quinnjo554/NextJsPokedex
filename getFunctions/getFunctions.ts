@@ -1,5 +1,4 @@
 import { UseQueryResult, useQuery } from 'react-query';
-import { Configuration, OpenAIApi } from "openai";
 import axios from 'axios';
 
 export function usePagePokemon(page:string|undefined,size:string) {

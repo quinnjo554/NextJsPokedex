@@ -9,7 +9,6 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
 import { getLearnset } from "@/getFunctions/getFunctions";
 import BattleArea from "./BattleArea";
 

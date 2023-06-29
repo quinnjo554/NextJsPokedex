@@ -1,9 +1,6 @@
 "use client";
 import {
   getAbilities,
-  getPokeIdByName,
-  getPokemonEvolution,
-  useEvolution,
   usePokemonById,
   getChatBot,
 } from "@/getFunctions/getFunctions";
@@ -11,7 +8,6 @@ import React, { useEffect, useState, useRef } from "react";
 import { startStarfieldAnimation } from "@/starfield";
 import { SpriteButtons } from "./SpriteButtons";
 import Link from "next/link";
-import PokemonInfo from "../PokemonInfo";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -32,19 +28,14 @@ import {
   List,
   ListItem,
   InputGroup,
-  UnorderedList,
-  Flex,
-  Image,
   Input,
   Popover,
   PopoverTrigger,
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  PopoverFooter,
   PopoverArrow,
   PopoverCloseButton,
-  PopoverAnchor,
 } from "@chakra-ui/react";
 import { Bar } from "react-chartjs-2";
 

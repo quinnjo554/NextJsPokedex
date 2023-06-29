@@ -5,16 +5,13 @@ import {
   getNextPageNumber,
   useAllPokemon,
 } from "@/getFunctions/getFunctions";
-import Pokeball from "../public/file-pokeball-png-0.png";
 import Pikachu from "../public/pikachu_run_avatar_by_thefandomdude_d809mbc.gif";
-import PokemonScreen from "../public/pokémon-minimalism-pixel-art-nintendo-wallpaper-preview.jpg";
 import {
   ChakraProvider,
   Box,
   Input,
   InputGroup,
   InputRightElement,
-  Button,
   Grid,
   Link,
   Menu,
@@ -114,7 +111,7 @@ function PokemonList({ id }: PokemonProps) {
         className=" grid justify-center relative top-1/2 text-3xl"
         style={{ transform: "scaleX(-1)" }}
       >
-        <Image src={Pikachu} alt="Pokeball" width={110} height={110}></Image>
+        <Image src={Pikachu} alt="pika" width={110} height={110}></Image>
       </div>
     );
   }
@@ -124,6 +121,7 @@ function PokemonList({ id }: PokemonProps) {
       <Box mt={16} className="" p={10}>
         <InputGroup className="fixed left-[40%] w-[100px] inputMobile">
           <Input
+            data-testid="search-bar"
             variant="filled"
             placeholder="Search For Pokemon"
             w={300}

@@ -1,6 +1,5 @@
 import React from "react";
 import { Heading } from "@chakra-ui/react";
-import { CalendarIcon } from "@chakra-ui/icons";
 
 function WeatherHeader(props: {
   dayWeather: forecastday[] | undefined;
@@ -8,7 +7,7 @@ function WeatherHeader(props: {
 }) {
   return (
     <div className="w-max h-max self-center ml-28 mt-10 mb-9">
-      <Heading fontWeight={"normal"} className="ml-7">
+      <Heading data-testid="location-name" fontWeight={"normal"} className="ml-7">
         {props.weather?.location.name}
       </Heading>
       <Heading as="h1" fontWeight={"thin"} size="4xl" className="mb-1 ml-6">

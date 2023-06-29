@@ -1,22 +1,9 @@
 "use client";
-import { Card, ChakraProvider, Flex, Image } from "@chakra-ui/react";
-import {
-  PhoneIcon,
-  AddIcon,
-  WarningIcon,
-  TimeIcon,
-  CalendarIcon,
-} from "@chakra-ui/icons";
-import { format } from "date-fns";
+import { ChakraProvider, Image } from "@chakra-ui/react";
+
 import React, { useEffect, useState } from "react";
 import {
   Box,
-  Text,
-  Heading,
-  Stack,
-  StackDivider,
-  List,
-  UnorderedList,
 } from "@chakra-ui/react";
 import MultidayForecast from "./MultidayForecast";
 import HourlyForecast from "./HourlyForecast";

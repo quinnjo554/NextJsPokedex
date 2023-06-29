@@ -6,9 +6,6 @@ import {
   Button,
   Text,
   Image,
-  Heading,
-  Link as ChakraLink,
-  Link,
   Input,
   Flex,
 } from "@chakra-ui/react";
@@ -28,6 +25,8 @@ function WhosThatPokemon() {
     data: allPokemon,
     isLoading: allLoading,
     isError: allError,
+
+
   } = useAllPokemon();
   useEffect(() => {
     if (data) {

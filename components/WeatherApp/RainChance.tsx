@@ -1,6 +1,5 @@
 import {
   ChakraProvider,
-  Box,
   Text,
   UnorderedList,
   List,

@@ -7,10 +7,9 @@ import {
   Text,
   Image,
   Grid,
-  GridItem,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-
+//TODO set up is loading and is error
 function PokemonInfo() {
   const { data, isLoading, isError } = useMovies();
   const [movies, setMovies] = useState<Array<MovieApi>>([]);

@@ -53,7 +53,7 @@ function HourlyForecast(props: {
               )}
             </Box>
             <Box>
-              <UnorderedList className="text-white mt-3 mr-3 ml-3 flex overflow-x-scroll">
+              <UnorderedList data-testid="hourList" className="text-white mt-3 mr-3 ml-3 flex overflow-x-scroll">
                 {props.dayWeather &&
                   props.dayWeather[props.index].hour.map((value, index) => {
                     if (index >= props.currentHour) {

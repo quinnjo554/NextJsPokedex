@@ -1,6 +1,5 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import PokemonList from "./PokemonList";
 import { getPokemonById, usePagePokemon } from "@/getFunctions/getFunctions";
 import {
   ChakraProvider,

@@ -16,7 +16,7 @@ function LandingPage() {
   return (
     <ChakraProvider>
       <LandingNav hasButtons={true}></LandingNav>
-      <Box className="hero fixed top-20 z-[-1] w-full h-full landingpage">
+      <Box zIndex="-1" top="20" w="full" h="full" className="hero landingpage">
         <Box className="card" id="pokecard">
           <Box className="card-content">
             <Heading className="title">Pokedex</Heading>
@@ -27,7 +27,7 @@ function LandingPage() {
           </Box>
         </Box>
         <Box className="heroText fixed w-max left-[15%]">
-          <Box className="hero-content w-1/2">
+          <Box w="container.md" className="hero-content">
             <Heading
               as="h1"
               size="3xl"
