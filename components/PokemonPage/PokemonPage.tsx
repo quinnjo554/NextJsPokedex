@@ -191,7 +191,17 @@ function PokemonPage({ id }: PokemonProps) {
         <div className="fixed left-6 top-0">
           <Popover>
             <PopoverTrigger>
-              <Text className="bg-white p-2 rounded-md cursor-pointer text-black hover:bg-blue-500">
+              <Text
+                bg={"white"}
+                p={"2"}
+                borderRadius={"md"}
+                cursor={"pointer"}
+                textColor={"black"}
+                _hover={{
+                  bg: "blue.500",
+                  textColor: "white",
+                }}
+              >
                 Ask The Pokedex
               </Text>
             </PopoverTrigger>
@@ -210,7 +220,7 @@ function PokemonPage({ id }: PokemonProps) {
             </PopoverContent>
           </Popover>
         </div>
-        <Link href={`http://localhost:3000/pokedex/home/0`}>
+        <Link href={`http://localhost:3000/pokedex/home`}>
           <Heading
             as="h1"
             bg="white"

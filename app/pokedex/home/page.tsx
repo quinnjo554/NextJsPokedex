@@ -7,7 +7,7 @@ const PokedexPage: FC<PageProps> = ({ params }) => {
   return (
     <div className="pokedex">
       <LandingNav hasButtons={true} />
-      <PokemonList id={params.id}></PokemonList>
+      <PokemonList id="0"></PokemonList>
     </div>
   );
 };

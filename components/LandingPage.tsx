@@ -40,7 +40,7 @@ function LandingPage() {
               quos ad libero doloremque eligendi facere aperiam, optio fuga
               architecto atque officia molestias culpa nihil. Ducimus.
             </Text>
-            <ChakraLink as={Link} href={"/pokedex/home/0"}>
+            <ChakraLink as={Link} href={"/pokedex/home"}>
               <Button className="button text-white mt-4 shadow-md shadow-white hover:shadow-none ease-in-out">
                 Try For Free
               </Button>

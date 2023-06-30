@@ -20,4 +20,6 @@ expect(result.current.data).toEqual("Hello");
 
 Convention for isLoading and is Error?
 
-Setting up Chakra Provider
+Setting up Chakra Provider doesnt work
+
+useInfinQuery how to get next page

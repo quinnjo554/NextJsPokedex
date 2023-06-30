@@ -31,7 +31,13 @@ export function PokemonInfoStats(props: { pokeData: pokemon | undefined }) {
           </Heading>
           <List display="flex">
             {props.pokeData?.eggGroups.map((value, index) => (
-              <ListItem className="mr-2 p-1 w-max rounded-sm" key={index}>
+              <ListItem
+                mr={"2"}
+                p={"1"}
+                w={"max"}
+                borderRadius={"2xl"}
+                key={index}
+              >
                 {value.name}
               </ListItem>
             ))}
@@ -43,7 +49,13 @@ export function PokemonInfoStats(props: { pokeData: pokemon | undefined }) {
           </Heading>
           <List display="flex">
             {props.pokeData?.types.map((value, index) => (
-              <ListItem className="mr-2 p-1 w-max rounded-sm" key={index}>
+              <ListItem
+                mr={"2"}
+                p={"1"}
+                w={"max"}
+                borderRadius={"2xl"}
+                key={index}
+              >
                 {value.name}
               </ListItem>
             ))}
