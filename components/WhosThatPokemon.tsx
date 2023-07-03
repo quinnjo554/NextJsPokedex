@@ -12,7 +12,7 @@ import {
   Input,
   Flex,
 } from "@chakra-ui/react";
-import { useAllPokemon, useRandomPokemon } from "@/getFunctions/getFunctions";
+import { useAllPokemon, useRandomPokemon } from "@/queries/getFunctions";
 
 function WhosThatPokemon() {
   const [inputValue, setInputValue] = useState("");
@@ -96,7 +96,7 @@ function WhosThatPokemon() {
             isBlurred ? `contrastImg` : `filter-none`
           } transition-all ease-in-out`}
           src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData?.id}.png`}
-          maxW="80vw" 
+          maxW="80vw"
           h="auto"
         />
         <Text

@@ -1,11 +1,6 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
-
-import {
-  usePagePokemon,
-  useAllPokemon,
-  usePokemonInfinite,
-} from "@/getFunctions/getFunctions";
+import { useAllPokemon, usePokemonInfinite } from "@/queries/getFunctions";
 import Pikachu from "../public/pikachu_run_avatar_by_thefandomdude_d809mbc (1).gif";
 import {
   ChakraProvider,
@@ -31,12 +26,9 @@ import Image from "next/image";
 
 function PokemonList({ id }: PokemonProps) {
   const [allPokemon, setAllPokemon] = useState<Array<pokemon>>([]);
-  const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
   const [input, setInput] = useState("");
   const [showFilter, setShowFilter] = useState(false);
   const [searchFilter, setSearchFilter] = useState("");
-  const { data, isLoading, isError } = usePagePokemon(id, "32");
   const {
     data: allPokemonData,
     isLoading: allPokemonLoading,
@@ -65,7 +57,7 @@ function PokemonList({ id }: PokemonProps) {
 
   const {
     data: infiniteData,
-    isLoading: infiniteIsLoading,
+    isLoading: isInfinteLoading,
     fetchNextPage,
   } = usePokemonInfinite();
 
@@ -73,31 +65,23 @@ function PokemonList({ id }: PokemonProps) {
     ({ content }) => content
   );
 
-  console.log(infiniteData);
   const filteredSearch = allPokemon.filter((item) => {
     const lowercaseName = item.name.toLowerCase();
     const lowercaseInput = input.toLowerCase();
+
     if (searchFilter === "Type") {
       return item.types.some((type) =>
         type.name.toLowerCase().includes(lowercaseInput)
       );
-    } else if (searchFilter === "Ability") {
+    }
+
+    if (searchFilter === "Ability") {
       return item.abilities.some((ability) =>
         ability.name.toLowerCase().includes(lowercaseInput)
       );
-    } else if (searchFilter === "Name") {
-      return lowercaseName.includes(lowercaseInput);
-    } else {
-      return lowercaseName.includes(lowercaseInput);
     }
+    return lowercaseName.includes(lowercaseInput);
   });
-
-  useEffect(() => {
-    if (data) {
-      setTotalPages(data["totalPages"]);
-      setPage(Number(id));
-    }
-  }, [data]);
 
   useEffect(() => {
     if (allPokemonData) {
@@ -114,7 +98,7 @@ function PokemonList({ id }: PokemonProps) {
     }
   }
 
-  if (isLoading) {
+  if (isInfinteLoading) {
     return (
       <div
         className=" grid justify-center relative top-1/2 text-3xl"
@@ -127,7 +111,7 @@ function PokemonList({ id }: PokemonProps) {
 
   return (
     <ChakraProvider>
-      <Box mt={16} w={"100%"} className="" p={10}>
+      <Box mt={16} w={"100%"} p={10}>
         <InputGroup w={"64"} className="fixed left-[40%] inputMobile">
           <Input
             data-testid="search-bar"

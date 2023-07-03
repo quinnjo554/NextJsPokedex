@@ -10,7 +10,7 @@ import {
 import Pokeball from "../public/file-pokeball-png-0.png";
 import Image from "next/image";
 import Link from "next/link";
-import { useRandomPokemon } from "@/getFunctions/getFunctions";
+import { useRandomPokemon } from "@/queries/getFunctions";
 import {
   ChakraProvider,
   Menu,

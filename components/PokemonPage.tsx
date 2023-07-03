@@ -1,7 +1,7 @@
 "use client";
 {
 }
-import { usePokemonById } from "@/getFunctions/getFunctions";
+import { usePokemonList } from "@/queries/getFunctions";
 import React, { useEffect, useState, useRef } from "react";
 import { startStarfieldAnimation } from "@/starfield";
 
@@ -42,7 +42,7 @@ function PokemonPage({ id }: PokemonProps) {
   const [spriteRender, setSpriteRender] = useState(``);
   const [background, setBackground] = useState<Array<string>>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { data: pokemonData, isLoading, isError } = usePokemonById(id);
+  const { data: pokemonData, isLoading, isError } = usePokemonList(id);
   const options = {
     responsive: true,
     plugins: {
