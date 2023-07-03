@@ -1,15 +1,31 @@
 import { UseQueryResult, useQuery } from 'react-query';
+import { QueryFunctionContext, useInfiniteQuery } from 'react-query';
 import axios from 'axios';
 
-export function usePagePokemon(page:string|undefined) {
+export function usePagePokemon(page:string|undefined,size:string) {
   return useQuery(['allPokemon', page], async () => {
     const response = await axios.get(
-      `http://localhost:9081/pokemon/all?page=${page}&size=32&sortBy=id&sortOrder=asc`
+      `http://localhost:9081/pokemon/all?page=${page}&size=${size}&sortBy=id&sortOrder=asc`
     );
     return response.data;
   });
 }
 
+export const usePokemonInfinite = () => {
+  const query= useInfiniteQuery({
+    queryKey:["pokemon"],
+    getNextPageParam: (lastPage,pages)=>lastPage.pageable.pageNumber + 1,
+    queryFn:getPokemon,
+  });
+  return query
+};
+
+export async function getPokemon({pageParam:page=0}){
+  const response = await axios.get(
+  `http://localhost:9081/pokemon/all?page=${page}&size=${32}&sortBy=id&sortOrder=asc`
+  );
+  return response.data;
+}
 
 export function useAllPokemon(): UseQueryResult<any, unknown> {
   return useQuery(["allPokemon"], async () => {
