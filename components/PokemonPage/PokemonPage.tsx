@@ -55,6 +55,9 @@ function PokemonPage({ id }: PokemonProps) {
   const [abilitiesDesc, setAbilitiesDesc] = useState<Array<string>>([]);
   const [chatText, setChatText] = useState("");
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isCaptured, setIsCaptued] = useState(false);
+  const [capturePressed, setCapturePressed] = useState(false);
+  const [capturedIds, setCapturedIds] = useState<string[]>([]);
   const { data: pokemonData, isLoading, isError } = usePokemonById(id);
   const inputRef = useRef<HTMLInputElement>(null);
   const options = {
@@ -112,7 +115,6 @@ function PokemonPage({ id }: PokemonProps) {
       },
     ],
   };
-
   const typeColors: TypeColors = {
     normal: "bg-gray-500",
     fire: "bg-red-500",
@@ -133,12 +135,24 @@ function PokemonPage({ id }: PokemonProps) {
     steel: "bg-gray-400",
     fairy: "bg-pink-300",
   };
+
   useEffect(() => {
     startStarfieldAnimation(canvasRef);
   }, []);
 
+  function handleCapture() {
+    if (id) {
+      if (!isCaptured) {
+        window.localStorage.setItem(String(window.localStorage.length), id);
+        setCapturePressed(true);
+      }
+    }
+  }
+
   async function handleOnClick() {
-    const inputValue = inputRef.current?.value + "answer as pokedex";
+    const inputValue =
+      inputRef.current?.value +
+      " provide your answer as the pokedex from pokemon";
     if (inputValue) {
       const data: ChatResponse = await getChatBot(inputValue);
       if (data && data.data) {
@@ -183,7 +197,8 @@ function PokemonPage({ id }: PokemonProps) {
   if (isError) {
     return <p>Hold up</p>;
   }
-
+  if (isLoading) {
+  }
   return (
     <ChakraProvider>
       <Box mx="auto" px={["4", "6", "8"]} maxW="3xl" mt="12" color="white">
@@ -207,11 +222,11 @@ function PokemonPage({ id }: PokemonProps) {
             </PopoverTrigger>
             <PopoverContent>
               <PopoverArrow />
-              <PopoverCloseButton className="bg-black" />
-              <PopoverHeader className="text-black overflow-scroll">
+              <PopoverCloseButton bg="black" />
+              <PopoverHeader textColor="black" h="72" overflowY="scroll">
                 {chatText}
               </PopoverHeader>
-              <PopoverBody className="text-black">
+              <PopoverBody textColor="black">
                 <InputGroup>
                   <Input ref={inputRef} />
                   <Button onClick={handleOnClick}>Ask</Button>
@@ -245,19 +260,23 @@ function PokemonPage({ id }: PokemonProps) {
           fontWeight="bold"
           textAlign="center"
           mb="16"
+          data-testid="pokemon-name"
         >
           {pokeData?.name} #{pokeData?.id}
         </Heading>
 
         <Grid gridTemplateColumns={["1fr", "1fr", "repeat(2, 1fr)"]} gap="8">
           <Box position="relative">
-            <Box className="cardSurface w-max">
+            <Box w="max" className="cardSurface">
               <Box
                 as="img"
-                className={`rounded-md bg-slate-200 bg-opacity-60 w-[320px] h-[320px]`}
                 src={spriteRender}
                 height="300"
                 alt={pokeData?.name}
+                borderRadius="md"
+                bg="rgba(200,200,200,0.4)"
+                w={"320px"}
+                h={"320px"}
               />
             </Box>
           </Box>
@@ -267,7 +286,7 @@ function PokemonPage({ id }: PokemonProps) {
           ></SpriteButtons>
           <Box>
             <Box
-              className={`bg-opacity-60 p-4 rounded-lg shadow-lg ${background[0]}`}
+              className={`bg-opacity-60 ${background[0]}`}
               bg={background[0]}
               p="4"
               rounded="lg"
@@ -275,9 +294,8 @@ function PokemonPage({ id }: PokemonProps) {
             >
               <PokemonInfoStats pokeData={pokeData}></PokemonInfoStats>
             </Box>
-
             <Box
-              className={`mt-8 bg-opacity-60 p-4 rounded-lg shadow-lg ${background[1]}`}
+              className={` bg-opacity-60  ${background[1]}`}
               bg={background[1]}
               mt="8"
               p="4"
@@ -289,7 +307,7 @@ function PokemonPage({ id }: PokemonProps) {
               </Heading>
               <List display="flex">
                 {pokeData?.abilities.map((value, index) => (
-                  <ListItem className="mr-3" key={index}>
+                  <ListItem mr="3" key={index}>
                     <Popover>
                       <PopoverTrigger>
                         <Text className="bg-slate-200 bg-opacity-60 p-1 rounded-md cursor-pointer">
@@ -298,11 +316,11 @@ function PokemonPage({ id }: PokemonProps) {
                       </PopoverTrigger>
                       <PopoverContent>
                         <PopoverArrow />
-                        <PopoverCloseButton className="bg-black" />
-                        <PopoverHeader className="text-black">
+                        <PopoverCloseButton textColor={"black"} />
+                        <PopoverHeader textColor={"black"}>
                           {value.name}
                         </PopoverHeader>
-                        <PopoverBody className="text-black">
+                        <PopoverBody textColor={"black"}>
                           {abilitiesDesc[index]}
                         </PopoverBody>
                       </PopoverContent>
@@ -313,13 +331,11 @@ function PokemonPage({ id }: PokemonProps) {
             </Box>
           </Box>
         </Grid>
-
         <Box mt="8" rounded="lg" className={`${background[0]} bg-opacity-60`}>
           <Bar options={options} data={data} />
         </Box>
-
         <Box
-          className={`mt-8 bg-opacity-60 p-4 rounded-lg shadow-lg ${background[1]}`}
+          className={` bg-opacity-60 ${background[1]}`}
           bg={background[1]}
           mt="8"
           p="4"
@@ -330,6 +346,16 @@ function PokemonPage({ id }: PokemonProps) {
             Description
           </Heading>
           <Text>{pokeData?.description}</Text>
+        </Box>
+        <Box mt={3} mb={3} textAlign={"center"}>
+          <Button
+            onClick={() => {
+              setIsCaptued(true);
+              handleCapture();
+            }}
+          >
+            Capture
+          </Button>
         </Box>
       </Box>
     </ChakraProvider>

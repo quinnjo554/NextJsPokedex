@@ -6,7 +6,7 @@ import {
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "react-query";
-import PokemonList from "@/components/PokemonList";
+import PokemonList from "@/components/PokemonList/PokemonList";
 describe("PokemonList", () => {
   const queryClient = new QueryClient();
   beforeEach(() => {
@@ -69,12 +69,12 @@ describe("PokemonList", () => {
       }
     );
 
-    setTimeout(async () => {
+    waitFor(() => {
       const charmanderElement = screen.findByText("Charmander");
       expect(charmanderElement).toBeInTheDocument();
-    }, 200);
+    });
   });
-
+  //confused because now all of these pass but before they all faid with waitFor
   it("updates the input value and filters the Pokemon list", async () => {
     render(
       <QueryClientProvider client={queryClient}>
@@ -83,14 +83,14 @@ describe("PokemonList", () => {
     );
 
     //confused on how and when to use waitfor. Sometimes I need to wait for a promise but it never does.
-
-    setTimeout(() => {
+    waitFor(() => {
       const searchInput = screen.getByTestId("search-bar");
       userEvent.type(searchInput, "bul");
-    }, 200);
-    setTimeout(async () => {
+    });
+
+    waitFor(async () => {
       const filteredPokemon = await screen.findAllByText(/bulbasaur/i);
       expect(filteredPokemon.length).toBe(1);
-    }, 200);
+    });
   });
 });

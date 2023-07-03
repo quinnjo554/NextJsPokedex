@@ -5,4 +5,7 @@ module.exports = {
     images: {
       domains: ['raw.githubusercontent.com'],
     },
+    env: {
+      customKey: 'my-value',
+    },
   };

@@ -20,7 +20,7 @@ function RainChance(props: {
           {props.dayWeather?.map((value, index) => {
             return (
               <List className="mr-3">
-                <Text>{value.hour[3].chance_of_rain}</Text>
+                <Text key={index}>{value.hour[3].chance_of_rain}</Text>
               </List>
             );
           })}

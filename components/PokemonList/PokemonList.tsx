@@ -1,13 +1,12 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
 
-
 import {
   usePagePokemon,
   useAllPokemon,
   usePokemonInfinite,
 } from "@/getFunctions/getFunctions";
-import Pikachu from "../public/pikachu_run_avatar_by_thefandomdude_d809mbc.gif";
+import Pikachu from "../../public/pikachu_run_avatar_by_thefandomdude_d809mbc.gif";
 import {
   ChakraProvider,
   Box,
@@ -134,6 +133,7 @@ function PokemonList({ id }: PokemonProps) {
             data-testid="search-bar"
             variant="filled"
             placeholder="Search For Pokemon"
+            textColor="white"
             w={300}
             onChange={handleInputChange}
           />
@@ -275,8 +275,8 @@ function PokemonList({ id }: PokemonProps) {
             );
           })}
         </Grid>
-        <Box className="text-center mt-4">
-          <Button onClick={() => fetchNextPage()}>Next</Button>
+        <Box textAlign={"center"} mt={"8"} className="text-center mt-4">
+          <Button onClick={() => fetchNextPage()}>Load More</Button>
         </Box>
       </Box>
     </ChakraProvider>

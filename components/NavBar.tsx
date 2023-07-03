@@ -76,6 +76,9 @@ function LandingNav(props: { hasButtons: boolean }) {
                   <Link href="http://localhost:3000/weather">
                     <MenuItem>Pokemon Weather</MenuItem>
                   </Link>
+                  <Link href="http://localhost:3000/captured-pokemon">
+                    <MenuItem>My Pokemon</MenuItem>
+                  </Link>
                 </MenuList>
               </Menu>
             )}
