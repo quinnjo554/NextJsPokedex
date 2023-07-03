@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ChakraProvider,
   Box,
@@ -10,22 +10,24 @@ import {
   Link,
 } from "@chakra-ui/react";
 import LandingNav from "./NavBar";
+//Break up components try not to exceed 100 lines
+
 function LandingPage() {
   return (
     <ChakraProvider>
       <LandingNav hasButtons={true}></LandingNav>
-      <Box className="hero fixed top-20 z-[-1] w-full h-full landingpage">
+      <Box zIndex="-1" top="20" w="full" h="full" className="hero landingpage">
         <Box className="card" id="pokecard">
           <Box className="card-content">
             <Heading className="title">Pokedex</Heading>
             <Text className="card-body">Battle with Your favorite pokemon</Text>
-            <ChakraLink as={Link} href={"/battle/landing"} className="button">
+            <ChakraLink as={Link} href={"/battle"} className="button">
               Battle
             </ChakraLink>
           </Box>
         </Box>
         <Box className="heroText fixed w-max left-[15%]">
-          <Box className="hero-content w-1/2">
+          <Box w="container.md" className="hero-content">
             <Heading
               as="h1"
               size="3xl"
@@ -38,7 +40,7 @@ function LandingPage() {
               quos ad libero doloremque eligendi facere aperiam, optio fuga
               architecto atque officia molestias culpa nihil. Ducimus.
             </Text>
-            <ChakraLink as={Link} href={"/pokedex/home/0"}>
+            <ChakraLink as={Link} href={"/pokedex/home"}>
               <Button className="button text-white mt-4 shadow-md shadow-white hover:shadow-none ease-in-out">
                 Try For Free
               </Button>

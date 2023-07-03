@@ -11,11 +11,56 @@
   }
 }
 
+.html{
+  max-width: 100vw;
+}
+
+.poke-move-forward {
+  animation: pokeMoveForward 0.5s linear;
+}
+.landingImg{
+  background-image: url('../public/desktop-wallpaper-rotom-pokedex-background.jpg');
+  background-size: cover ;
+  height: 100vh;
+}
+@keyframes fadeOutAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+.fadeOut {
+  animation: fadeOutAnimation 1s forwards;
+}
+@keyframes pokeMoveForward {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.arena{
+  background-image:url("../public/lhu26US.png") ;
+  background-size:cover;
+}
 
 .whosThatPokemon{
   background-image: url("../public/maxresdefault.jpg");
   background-size: cover;
 }
+
+.battleArena{
+  background-image: url("../public/gamesprites/Game\ Boy\ Advance\ -\ Pokemon\ FireRed\ LeafGreen\ -\ Pattern\ Bush.png");
+  background-size:cover 
+}
+
 .contrastImg {
   -webkit-filter: contrast(0) sepia(100%) hue-rotate(190deg) saturate(2000%) brightness(0%);
   filter: contrast(0) sepia(100%) hue-rotate(190deg) saturate(2000%) brightness(0%);
@@ -23,11 +68,12 @@
 .landingpage{
     background-image: url("../public/3d-abstract-wave-pattern-background.jpg");
     background-size: cover;
+    height: 100vh;
 }
 
 .pokedex{
-  background-image: url("../public/tumblr_pev0myaFLh1sqpyoco1_1280.jpeg");
-  background-size: cover;
+  background-image: url("../public/3d-abstract-wave-pattern-background.jpg");
+  background-size:contain;
   height: 100%;
 }
 
@@ -65,8 +111,8 @@
   top: 28%;
    left:70% ;
    color: whitesmoke;
-   background-image: url("../public/image.jpg");
-   background-size: cover;
+   background-image: url("../public/ezgif.com-video-to-gif\ \(1\).gif");
+   background-size:cover;
    padding:1rem 0 0;
    max-width: 45ch;
    min-width: 35ch;
@@ -75,10 +121,10 @@
    transition-delay: 200ms;
    transition:transform 500ms ease;
    margin-top: 25px;
-   box-shadow: 5px 5px 5px black;
-   animation:slideImg 600s infinite;    
+   box-shadow: 5px 5px 5px black;   
    animation-timing-function: linear;
 }
+
 
 
 .card:hover{
@@ -159,14 +205,19 @@
   .card{
     visibility: hidden;
   }
-
+  .pokedex{
+    height: 100%;
+  }
 }
 @media (min-width:600px) {
   .greeting{
       position: relative;
       left:-10%;
   }
-}@media (max-width: 768px) {
+  
+}
+
+@media (max-width: 768px) {
   .mobile-center {
     justify-items: center;
   }
