@@ -1,5 +1,5 @@
 "use client";
-import { ChakraProvider, Spinner } from "@chakra-ui/react";
+import { ChakraProvider, List, ListItem, Spinner } from "@chakra-ui/react";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
@@ -98,14 +98,14 @@ function WhosThatPokemon() {
           h="auto"
         />
         <Text
-          className="text-black"
           fontSize="2xl"
           maxW="80vw"
           textAlign="center"
+          textColor={"black"}
         >
           {pokemonData?.description.replace(pokemonData.name, "-------")}
         </Text>
-        <Box className="fixed bottom-28" maxW="80vw" w="full">
+        <Box position={"fixed"} bottom={"28"} maxW="80vw" w="full">
           <Input
             placeholder="Enter your guess"
             variant={"filled"}
@@ -115,17 +115,20 @@ function WhosThatPokemon() {
           />
           {inputValue && (
             <Box h={100} overflowY="auto" bg="white">
-              <Text>
+              <List>
                 {filteredSearch.map((value, index) => (
-                  <li
+                  <ListItem
                     onClick={() => handleFilterClick(value.name)}
                     key={index}
-                    className=" px-2 py-1 my-1 cursor-pointer"
+                    px={"2"}
+                    py={"1"}
+                    my={"1"}
+                    cursor={"pointer"}
                   >
                     {value.name}
-                  </li>
+                  </ListItem>
                 ))}
-              </Text>
+              </List>
             </Box>
           )}
           {!guessed && (

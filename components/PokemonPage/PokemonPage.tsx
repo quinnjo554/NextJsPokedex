@@ -310,7 +310,12 @@ function PokemonPage({ id }: PokemonProps) {
                   <ListItem mr="3" key={index}>
                     <Popover>
                       <PopoverTrigger>
-                        <Text className="bg-slate-200 bg-opacity-60 p-1 rounded-md cursor-pointer">
+                        <Text
+                          bg={"rgba(226,232,240,0.6)"}
+                          p={"1"}
+                          rounded={"md"}
+                          cursor={"pointer"}
+                        >
                           {value.name}
                         </Text>
                       </PopoverTrigger>

@@ -10,6 +10,7 @@ import {
   MenuItem,
   Link,
   IconButton,
+  Text,
   ListItem,
   UnorderedList,
   Flex,
@@ -26,7 +27,12 @@ function SearchBar(props: {
 }) {
   return (
     <>
-      <InputGroup w={"64"} className="fixed left-[40%] inputMobile">
+      <InputGroup
+        w={"64"}
+        position={"absolute"}
+        left={"40%"}
+        className="inputMobile"
+      >
         <Input
           data-testid="search-bar"
           variant="filled"
@@ -35,16 +41,16 @@ function SearchBar(props: {
           w={300}
           onChange={props.handleInputChange}
         />
-        <InputRightElement className="relative left-[15rem]">
+        <InputRightElement position={"relative"} left={"-1rem"}>
           <Menu>
             <MenuButton
               as={IconButton}
               aria-label="Options"
               icon={<HamburgerIcon />}
               variant="outline"
-              className="bg-white"
+              bg={"white"}
             />
-            <MenuList className="">
+            <MenuList>
               <MenuItem
                 value="Type"
                 onClick={() => props.setSearchFilter("Type")}
@@ -69,8 +75,11 @@ function SearchBar(props: {
       </InputGroup>
       {props.showFilter && (
         <Box
-          className="fixed left-[40%] max-h-24 inputMobile"
+          className=" inputMobile"
           bg="white"
+          position={"fixed"}
+          left={"40%"}
+          top={"36"}
           border="1px"
           borderColor="gray.300"
           rounded="md"
@@ -85,16 +94,24 @@ function SearchBar(props: {
                 href={`http://localhost:3000/pokedex/${value.id}`}
                 key={index}
               >
-                <ListItem className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                <ListItem
+                  display={"flex"}
+                  alignItems={"center"}
+                  py={"2"}
+                  px={"4"}
+                  _hover={{ bg: "gray.100" }}
+                  cursor={"pointer"}
+                  rounded={"md"}
+                >
                   <Image
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${value.id}.png`}
                     alt={value.name}
                     width={22}
                     height={22}
-                    className="mr-2"
+                    mr="2"
                   />
-                  <Box className="flex items-center">
-                    <span className="mr-2">{value.name}</span>
+                  <Box display={"flex"} alignItems={"center"}>
+                    <Text mr="2">{value.name}</Text>
                     <Flex>
                       {value.types.map((type, typeIndex) => (
                         <Box

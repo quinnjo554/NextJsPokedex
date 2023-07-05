@@ -21,6 +21,7 @@ function PokedexArray(props: {
       templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
       gap={3}
       p={6}
+      mt={10}
     >
       {props.pokemon?.map((value, index) => {
         const types = value.types.map((type) => {
@@ -30,7 +31,12 @@ function PokedexArray(props: {
           return (
             <ListItem
               key={value.id + Math.random()}
-              className={`flex px-2 py-0 mr-2 rounded-sm ${backgroundColor} text-center`}
+              display={"flex"}
+              px={"2"}
+              py={"0"}
+              rounded={"sm"}
+              textAlign={"center"}
+              className={`${backgroundColor}`}
               fontSize="sm"
             >
               {type.name}
@@ -45,8 +51,17 @@ function PokedexArray(props: {
             _hover={{ textDecoration: "none" }}
           >
             <Box
-              className="pokemon-card w-48 p-2 grid rounded-md mt-3 transition-all ease-in-out bg-black bg-opacity-70 text-white"
+              className="pokemon-card"
               borderRadius="md"
+              w={"48"}
+              p={"2"}
+              display={"grid"}
+              rounded={"md"}
+              mt={"3"}
+              transition={"all"}
+              animation={"ease-in-out"}
+              bg={"rgba(0,0,0,0.7)"}
+              textColor={"white"}
               _hover={{
                 transform: "scale(1.05)",
                 transition: "transform 0.3s ease-in-out",
@@ -54,18 +69,20 @@ function PokedexArray(props: {
             >
               <UnorderedList listStyleType="none">
                 <ListItem
-                  className="text-center bg-slate-500 rounded-md"
                   px={2}
+                  textAlign={"center"}
+                  bg={"rgba(100,116,139,1)"}
                   key={value.id}
+                  rounded={"md"}
                 >
                   {value.name}
                 </ListItem>
               </UnorderedList>
               <Image
-                className="mx-auto"
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${value.id}.png`}
-                alt=""
+                alt={value.name}
                 width="90"
+                mx={"auto"}
                 height="110"
               />
               <Flex justifyContent="space-between">

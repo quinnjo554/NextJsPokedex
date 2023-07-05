@@ -6,8 +6,7 @@ export function SpriteButtons({ setSpriteRender, id }: SpriteButtonsProps) {
     <ChakraProvider>
       <Box className="absolute top-28">
         <Button
-          className=" bg-slate-400 hover:bg-opacity-60"
-          bg="slate.200"
+          bg="rgb(148,163,184,1)"
           _hover={{ bgOpacity: "80" }}
           fontWeight="semibold"
           color="white"
@@ -25,10 +24,9 @@ export function SpriteButtons({ setSpriteRender, id }: SpriteButtonsProps) {
           Original
         </Button>
         <Button
-          className=" bg-slate-400 hover:bg-opacity-60"
-          bg="slate.200"
-          fontWeight="semibold"
+          bg="rgb(148,163,184,1)"
           _hover={{ bgOpacity: "80" }}
+          fontWeight="semibold"
           color="white"
           fontSize="lg"
           px="3"
@@ -44,8 +42,7 @@ export function SpriteButtons({ setSpriteRender, id }: SpriteButtonsProps) {
           Shiny
         </Button>
         <Button
-          className="bg-slate-400 hover:bg-opacity-60"
-          bg="slate.200"
+          bg="rgb(148,163,184,1)"
           fontWeight="semibold"
           _hover={{ bgOpacity: "80" }}
           color="white"
@@ -63,8 +60,7 @@ export function SpriteButtons({ setSpriteRender, id }: SpriteButtonsProps) {
           Sprite
         </Button>
         <Button
-          className=" bg-slate-400 hover:bg-opacity-60"
-          bg="slate.200"
+          bg="rgb(148,163,184,1)"
           fontWeight="semibold"
           _hover={{ bgOpacity: "80" }}
           color="white"

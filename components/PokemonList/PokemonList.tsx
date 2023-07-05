@@ -7,25 +7,7 @@ import {
   usePokemonInfinite,
 } from "@/queries/getFunctions";
 import Pikachu from "../../public/pikachu_run_avatar_by_thefandomdude_d809mbc.gif";
-import {
-  ChakraProvider,
-  Box,
-  Input,
-  Button,
-  InputGroup,
-  InputRightElement,
-  Grid,
-  Link,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  IconButton,
-  List,
-  ListItem,
-  UnorderedList,
-  Flex,
-} from "@chakra-ui/react";
+import { ChakraProvider, Box, Button } from "@chakra-ui/react";
 import SearchBar from "./SearchBar";
 import Image from "next/image";
 import PokedexArray from "./PokedexArray";
@@ -135,7 +117,7 @@ function PokemonList({ id }: PokemonProps) {
           typeColors={typeColors}
         ></SearchBar>
         <PokedexArray pokemon={pokemon} typeColors={typeColors}></PokedexArray>
-        <Box textAlign={"center"} mt={"8"} className="text-center mt-4">
+        <Box textAlign={"center"} mt={"8"}>
           <Button onClick={() => fetchNextPage()}>Load More</Button>
         </Box>
       </Box>
