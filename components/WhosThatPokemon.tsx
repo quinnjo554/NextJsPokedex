@@ -1,15 +1,8 @@
 "use client";
 import { ChakraProvider, Spinner } from "@chakra-ui/react";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import {
-  Box,
-  Button,
-  Text,
-  Image,
-  Input,
-  Flex,
-} from "@chakra-ui/react";
-import { useAllPokemon, useRandomPokemon } from "@/getFunctions/getFunctions";
+import { Box, Button, Text, Image, Input, Flex } from "@chakra-ui/react";
+import { useAllPokemon, useRandomPokemon } from "@/queries/getFunctions";
 
 function WhosThatPokemon() {
   const [inputValue, setInputValue] = useState("");
@@ -25,8 +18,6 @@ function WhosThatPokemon() {
     data: allPokemon,
     isLoading: allLoading,
     isError: allError,
-
-
   } = useAllPokemon();
   useEffect(() => {
     if (data) {

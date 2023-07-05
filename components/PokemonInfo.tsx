@@ -1,13 +1,6 @@
 "use client";
-import { useMovies } from "@/getFunctions/getFunctions";
-import {
-  ChakraProvider,
-  Link,
-  Box,
-  Text,
-  Image,
-  Grid,
-} from "@chakra-ui/react";
+import { useMovies } from "@/queries/getFunctions";
+import { ChakraProvider, Link, Box, Text, Image, Grid } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 //TODO set up is loading and is error
 function PokemonInfo() {

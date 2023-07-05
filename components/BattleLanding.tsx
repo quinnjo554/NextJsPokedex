@@ -1,6 +1,6 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { getPokemonById, usePagePokemon } from "@/getFunctions/getFunctions";
+import { getPokemonById, usePagePokemon } from "@/queries/getFunctions";
 import {
   ChakraProvider,
   Box,
@@ -106,7 +106,6 @@ function BattleLanding() {
       setPlayerPokemonId(value.id);
     } else {
       setAiPokemonId(value.id);
-      
     }
   }
 
@@ -152,7 +151,8 @@ function BattleLanding() {
             borderColor="gray.300"
             rounded="md"
             shadow="md"
-            overflowY="scroll">
+            overflowY="scroll"
+          >
             <UnorderedList listStyleType="none">
               {filteredSearch.map((value, index) => (
                 <ListItem

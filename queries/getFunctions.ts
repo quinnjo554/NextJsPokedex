@@ -1,6 +1,6 @@
-import { QueryFunctionContext, UseQueryResult, useInfiniteQuery, useQuery } from 'react-query';
+import { UseQueryResult, useInfiniteQuery, useQuery } from 'react-query';
 import axios from 'axios';
-
+import {useState, useEffect} from 'react'
 export function usePagePokemon(page:string|undefined,size:string) {
   return useQuery(['allPokemon', page], async () => {
     const response = await axios.get(
@@ -10,19 +10,26 @@ export function usePagePokemon(page:string|undefined,size:string) {
   });
 }
 
+export function useSessionStorage(id:string){
+  const [value, setValue] = useState<string|null>("")
+  useEffect(() => {
+    return setValue(sessionStorage.getItem(id));
+  }, [])
+
+  return value
+}
+
+
 export const usePokemonInfinite = () => {
-  const query= useInfiniteQuery({
+  return useInfiniteQuery({
     queryKey:["pokemon"],
     getNextPageParam: (lastPage,pages)=>lastPage.pageable.pageNumber + 1,
     queryFn:getPokemon,
   });
-  return query
 };
 
 export async function getPokemon({pageParam:page=0}){
-  const response = await axios.get(
-  `http://localhost:9081/pokemon/all?page=${page}&size=${32}&sortBy=id&sortOrder=asc`
-  );
+  const response = await axios.get(`http://localhost:9081/pokemon/all?page=${page}&size=${32}&sortBy=id&sortOrder=asc`);
   return response.data;
 }
 export async function getPokemonEvolution(name:string){
@@ -150,18 +157,17 @@ export async function getPokeIdByName(name:string|undefined){
     }
     }
 
-    const key = '6d6a57d5';
 
     export function useMovies() {
       return useQuery('pokemonMovies', async () => {
-        const response = await axios.get(`https://www.omdbapi.com/?apikey=${key}&s=pokemon`);
+        const response = await axios.get(`https://www.omdbapi.com/?apikey=${process.env.NEXT_PUBLIC_MOVIE_API_KEY}&s=pokemon`);
         return response.data;
       });
     }
 
     export function useMoviesDetails(id:string|undefined) {
       return useQuery('pokemonMoviesDetail', async () => {
-        const response = await axios.get(`https://www.omdbapi.com/?apikey=${key}&i=${id}`);
+        const response = await axios.get(`https://www.omdbapi.com/?apikey=${process.env.NEXT_PUBLIC_MOVIE_API_KEY}&i=${id}`);
         return response.data;
       });
     }
@@ -173,7 +179,7 @@ export async function getPokeIdByName(name:string|undefined){
         type:data.type.name,
         accuracy:data.accuracy
       }
-      return move
+      return move;
     }
     export async function getChatBot(message:string){
       const axios = require('axios');
@@ -182,7 +188,7 @@ export async function getPokeIdByName(name:string|undefined){
         url: 'https://lemurbot.p.rapidapi.com/chat',
         headers: {
           'content-type': 'application/json',
-          'X-RapidAPI-Key': '4c88693f7cmsh43012ae9e3ab147p1316e7jsn1a548a1b97e2',
+          'X-RapidAPI-Key':process.env.NEXT_PUBLIC_CHAT_API_KEY, 
           'X-RapidAPI-Host': 'lemurbot.p.rapidapi.com'
         },
         data: {

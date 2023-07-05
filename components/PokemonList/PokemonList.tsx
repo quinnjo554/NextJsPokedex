@@ -1,13 +1,12 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
 
-
 import {
   usePagePokemon,
   useAllPokemon,
   usePokemonInfinite,
-} from "@/getFunctions/getFunctions";
-import Pikachu from "../public/pikachu_run_avatar_by_thefandomdude_d809mbc.gif";
+} from "@/queries/getFunctions";
+import Pikachu from "../../public/pikachu_run_avatar_by_thefandomdude_d809mbc.gif";
 import {
   ChakraProvider,
   Box,
@@ -29,7 +28,7 @@ import {
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import Image from "next/image";
-
+import PokedexArray from "./PokedexArray";
 function PokemonList({ id }: PokemonProps) {
   const [allPokemon, setAllPokemon] = useState<Array<pokemon>>([]);
   const [page, setPage] = useState(0);
@@ -74,7 +73,6 @@ function PokemonList({ id }: PokemonProps) {
     ({ content }) => content
   );
 
-  console.log(infiniteData);
   const filteredSearch = allPokemon.filter((item) => {
     const lowercaseName = item.name.toLowerCase();
     const lowercaseInput = input.toLowerCase();
@@ -82,15 +80,15 @@ function PokemonList({ id }: PokemonProps) {
       return item.types.some((type) =>
         type.name.toLowerCase().includes(lowercaseInput)
       );
-    } else if (searchFilter === "Ability") {
+    }
+
+    if (searchFilter === "Ability") {
       return item.abilities.some((ability) =>
         ability.name.toLowerCase().includes(lowercaseInput)
       );
-    } else if (searchFilter === "Name") {
-      return lowercaseName.includes(lowercaseInput);
-    } else {
-      return lowercaseName.includes(lowercaseInput);
     }
+
+    return lowercaseName.includes(lowercaseInput);
   });
 
   useEffect(() => {
@@ -128,12 +126,13 @@ function PokemonList({ id }: PokemonProps) {
 
   return (
     <ChakraProvider>
-      <Box mt={16} w={"100%"} className="" p={10}>
+      <Box mt={16} w={"100%"} p={10}>
         <InputGroup w={"64"} className="fixed left-[40%] inputMobile">
           <Input
             data-testid="search-bar"
             variant="filled"
             placeholder="Search For Pokemon"
+            textColor="white"
             w={300}
             onChange={handleInputChange}
           />
@@ -214,69 +213,9 @@ function PokemonList({ id }: PokemonProps) {
             </UnorderedList>
           </Box>
         )}
-        <Grid
-          className="mobile-center"
-          templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
-          gap={3}
-          p={6}
-        >
-          {pokemon?.map((value, index) => {
-            const types = value.types.map((type) => {
-              const typeName = type.name.toLowerCase();
-              const backgroundColor = typeColors[typeName] || "bg-gray-300";
-
-              return (
-                <ListItem
-                  key={value.id + Math.random()}
-                  className={`flex px-2 py-0 mr-2 rounded-sm ${backgroundColor} text-center`}
-                  fontSize="sm"
-                >
-                  {type.name}
-                </ListItem>
-              );
-            });
-
-            return (
-              <Link
-                href={`/pokedex/${value.id}`}
-                key={index}
-                _hover={{ textDecoration: "none" }}
-              >
-                <Box
-                  className="pokemon-card w-48 p-2 grid rounded-md mt-3 transition-all ease-in-out bg-black bg-opacity-70 text-white"
-                  borderRadius="md"
-                  _hover={{
-                    transform: "scale(1.05)",
-                    transition: "transform 0.3s ease-in-out",
-                  }}
-                >
-                  <UnorderedList listStyleType="none">
-                    <ListItem
-                      className="text-center bg-slate-500 rounded-md"
-                      px={2}
-                      key={value.id}
-                    >
-                      {value.name}
-                    </ListItem>
-                  </UnorderedList>
-                  <Image
-                    className="mx-auto"
-                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${value.id}.png`}
-                    alt=""
-                    width="90"
-                    height="110"
-                  />
-                  <Flex justifyContent="space-between">
-                    <Box># {value.id}</Box>
-                    <List display="flex">{types}</List>
-                  </Flex>
-                </Box>
-              </Link>
-            );
-          })}
-        </Grid>
-        <Box className="text-center mt-4">
-          <Button onClick={() => fetchNextPage()}>Next</Button>
+        <PokedexArray pokemon={pokemon} typeColors={typeColors}></PokedexArray>
+        <Box textAlign={"center"} mt={"8"} className="text-center mt-4">
+          <Button onClick={() => fetchNextPage()}>Load More</Button>
         </Box>
       </Box>
     </ChakraProvider>

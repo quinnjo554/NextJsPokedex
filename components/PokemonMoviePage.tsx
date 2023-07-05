@@ -1,5 +1,5 @@
 "use client";
-import { useMoviesDetails } from "@/getFunctions/getFunctions";
+import { useMoviesDetails } from "@/queries/getFunctions";
 import { ChakraProvider, Box, Text, Image, Badge } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 

@@ -23,3 +23,18 @@ Convention for isLoading and is Error?
 Setting up Chakra Provider doesnt work
 
 useInfinQuery how to get next page
+
+Chakra ui backround opacity with backround[0]
+example:{
+
+ <Box
+          className={` bg-opacity-60 ${background[1]}`}
+          bg={background[1]}
+          mt="8"
+          p="4"
+          rounded="lg"
+          shadow="lg"
+        >
+        
+
+}

@@ -9,7 +9,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { getLearnset } from "@/getFunctions/getFunctions";
+import { getLearnset } from "@/queries/getFunctions";
 import BattleArea from "./BattleArea";
 
 function MoveSelect({ id }: PokemonProps) {
