@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { allTypes } from "@/constants";
-import { getMoveInfo, getPokemonById } from "@/getFunctions/getFunctions";
+import { getMoveInfo, getPokemonById } from "@/queries/getFunctions";
 function BattleArea(props: {
   player1: string | undefined;
   ai: string | undefined;

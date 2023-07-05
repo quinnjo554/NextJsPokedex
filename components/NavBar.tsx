@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Pokeball from "../public/file-pokeball-png-0.png";
 import Link from "next/link";
-import { useRandomPokemon } from "@/getFunctions/getFunctions";
+import { useRandomPokemon } from "@/queries/getFunctions";
 import {
   ChakraProvider,
   Box,

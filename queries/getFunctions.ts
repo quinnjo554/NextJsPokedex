@@ -21,18 +21,15 @@ export function useSessionStorage(id:string){
 
 
 export const usePokemonInfinite = () => {
-  const query= useInfiniteQuery({
+  return useInfiniteQuery({
     queryKey:["pokemon"],
     getNextPageParam: (lastPage,pages)=>lastPage.pageable.pageNumber + 1,
     queryFn:getPokemon,
   });
-  return query
 };
 
 export async function getPokemon({pageParam:page=0}){
-  const response = await axios.get(
-  `http://localhost:9081/pokemon/all?page=${page}&size=${32}&sortBy=id&sortOrder=asc`
-  );
+  const response = await axios.get(`http://localhost:9081/pokemon/all?page=${page}&size=${32}&sortBy=id&sortOrder=asc`);
   return response.data;
 }
 export async function getPokemonEvolution(name:string){

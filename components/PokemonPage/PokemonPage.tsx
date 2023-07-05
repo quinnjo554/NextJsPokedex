@@ -3,7 +3,7 @@ import {
   getAbilities,
   usePokemonById,
   getChatBot,
-} from "@/getFunctions/getFunctions";
+} from "@/queries/getFunctions";
 import React, { useEffect, useState, useRef } from "react";
 import { startStarfieldAnimation } from "@/starfield";
 import { SpriteButtons } from "./SpriteButtons";

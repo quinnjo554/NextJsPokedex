@@ -11,7 +11,10 @@ import {
   Flex,
 } from "@chakra-ui/react";
 
-function PokedexArray(props: { pokemon: pokemon[]; typeColors: TypeColors }) {
+function PokedexArray(props: {
+  pokemon: pokemon[] | undefined;
+  typeColors: TypeColors;
+}) {
   return (
     <Grid
       className="mobile-center"

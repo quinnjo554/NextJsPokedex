@@ -2,13 +2,11 @@
 import { ChakraProvider, Image } from "@chakra-ui/react";
 
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-} from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import MultidayForecast from "./MultidayForecast";
 import HourlyForecast from "./HourlyForecast";
 import WeatherHeader from "./WeatherHeader";
-import { useWeather } from "@/getFunctions/getFunctions";
+import { useWeather } from "@/queries/getFunctions";
 import Cloudy from "../../public/weather/srG.gif";
 import Rainy from "../../public/weather/4lsB.gif";
 import Clear from "../../public/weather/QINk.gif";

@@ -7,7 +7,7 @@ import {
   List,
   ListItem,
 } from "@chakra-ui/react";
-import { getPokemonById } from "@/getFunctions/getFunctions";
+import { getPokemonById } from "@/queries/getFunctions";
 import PokedexArray from "../PokemonList/PokedexArray";
 function CapturedList() {
   const [pokemon, setPokemon] = useState<pokemon[]>([]);
@@ -19,7 +19,7 @@ function CapturedList() {
     setPokemonIds(capturedIds);
     setAllPokemonData();
   }, [pokemon]);
-async function setAllPokemonData(): Promise<void> {
+  async function setAllPokemonData(): Promise<void> {
     if (!pokemonIds) return;
     const pokemonPromises = pokemonIds
       .filter((value) => value !== "light") //why is this always in my local storeage
