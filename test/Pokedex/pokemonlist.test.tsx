@@ -40,7 +40,7 @@ describe("PokemonList", () => {
       totalPages: 1,
     };
 
-    jest.mock("../../getFunctions/getFunctions", () => ({
+    jest.mock("../../queries/getFunctions", () => ({
       usePagePokemon: jest.fn(() => ({
         data: mockData,
         isLoading: false,
