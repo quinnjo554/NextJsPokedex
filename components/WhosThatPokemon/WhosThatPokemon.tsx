@@ -1,7 +1,17 @@
 "use client";
 import { ChakraProvider, Spinner } from "@chakra-ui/react";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Box, Button, Text, Image, Input, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Text,
+  Image,
+  Heading,
+  Link as ChakraLink,
+  Link,
+  Input,
+  Flex,
+} from "@chakra-ui/react";
 import { useAllPokemon, useRandomPokemon } from "@/queries/getFunctions";
 
 function WhosThatPokemon() {
@@ -11,7 +21,6 @@ function WhosThatPokemon() {
   const [isBlurred, setIsBlurred] = useState(true);
   const [responseText, setResponseText] = useState("");
   const [score, setScore] = useState(0);
-  const [canProceed, setCanProceed] = useState(false);
   const [pokemonArray, setPokemonArray] = useState<Array<pokemon>>([]);
   const { data, isLoading, isError, refetch } = useRandomPokemon();
   const {
@@ -61,7 +70,6 @@ function WhosThatPokemon() {
     setIsBlurred(true);
     setGuessed(false);
     setResponseText("");
-    setCanProceed(true);
     refetch();
   };
 
@@ -97,7 +105,7 @@ function WhosThatPokemon() {
         >
           {pokemonData?.description.replace(pokemonData.name, "-------")}
         </Text>
-        <Box className="fixed bottom-14" maxW="80vw" w="full">
+        <Box className="fixed bottom-28" maxW="80vw" w="full">
           <Input
             placeholder="Enter your guess"
             variant={"filled"}
@@ -126,13 +134,11 @@ function WhosThatPokemon() {
             </Button>
           )}
           {guessed && (
-            <>
-              <Button onClick={handleNext} w="full">
-                Next
-              </Button>
-            </>
+            <Button onClick={handleNext} w="full">
+              Next
+            </Button>
           )}
-          <Text fontSize="3xl">{responseText}</Text>
+          <Text>{responseText}</Text>
         </Box>
       </Flex>
     </ChakraProvider>

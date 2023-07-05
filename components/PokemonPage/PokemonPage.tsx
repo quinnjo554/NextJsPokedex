@@ -195,7 +195,7 @@ function PokemonPage({ id }: PokemonProps) {
   }, [pokemonData]);
 
   if (isError) {
-    return <p>Hold up</p>;
+    return <Text>Somthing went wrong</Text>;
   }
   if (isLoading) {
   }
