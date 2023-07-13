@@ -110,7 +110,7 @@ function PokemonList({ id }: PokemonProps) {
         fontSize={"3xl"}
         className="pokeballLoading"
       >
-        <Image src={Pokeball} alt="Pokeball" width={110} height={110}></Image>
+        <Image src={Pikachu} alt="Pokeball" width={110} height={110}></Image>
       </Box>
     );
   }
@@ -219,51 +219,8 @@ function PokemonList({ id }: PokemonProps) {
             </UnorderedList>
           </Box>
         )}
-        <Link
-          href={`http://localhost:3000/pokedex/home/${getNextPageNumber(
-            Number(id),
-            -1,
-            0,
-            totalPages
-          )}`}
-          className="arrow-link left"
-        >
-          <Box>
-            <Image
-              src={Arrow}
-              alt="Pokeball"
-              width={70}
-              height={70}
-              onClick={() => {
-                setPage((prevPageNum) =>
-                  getNextPageNumber(prevPageNum, -1, 0, totalPages)
-                );
-              }}
-            />
-          </Box>
-        </Link>
-        <Link
-          href={`http://localhost:3000/pokedex/home/${getNextPageNumber(
-            Number(id),
-            1,
-            0,
-            totalPages
-          )}`}
-          className="arrow-link right"
-        >
-          <Image
-            src={Arrow}
-            alt="Pokeball"
-            width={70}
-            height={70}
-            onClick={() => {
-              setPage((prevPageNum) =>
-                getNextPageNumber(prevPageNum, 1, 0, totalPages)
-              );
-            }}
-          />
-        </Link>
-        <Grid
+        
+       <Grid
           className="mobile-center"
           templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
           gap={3}
