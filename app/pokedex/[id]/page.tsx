@@ -1,6 +1,6 @@
 import React from "react";
 import { FC } from "react";
-import PokedexPage from "../../home/[id]/page";
+import PokedexPage from "../page";
 import PokemonPage from "@/components/PokemonPage";
 
 
