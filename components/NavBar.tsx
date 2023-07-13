@@ -1,16 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "@tanstack/react-query";
 import Pokeball from "../public/file-pokeball-png-0.png";
 import Image from "next/image";
 import Link from "next/link";
-import { useRandomPokemon } from "@/getFunctions/getFunctions";
+import { useRandomPokemon } from "@/queries/getFunctions";
 import {
   ChakraProvider,
   Menu,
@@ -18,6 +11,8 @@ import {
   MenuList,
   MenuItem,
   IconButton,
+  Box,
+  Heading,
 } from "@chakra-ui/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 function LandingNav(props: { hasButtons: boolean }) {
@@ -31,23 +26,47 @@ function LandingNav(props: { hasButtons: boolean }) {
 
   return (
     <ChakraProvider>
-      <div className="fixed top-0 w-full h-20 rounded-md z-20 bg-black shadow-md shadow-gray-400">
-        <div className="content">
-          <div>
-            <Link href="/">
-              <Image
-                src={Pokeball}
-                alt="Pokeball"
-                width={"60"}
-                height={"60"}
-                className="fixed top-2 ml-3"
-              />
-            </Link>
-            <h1 className="fixed left-24 top-5 text-2xl w-max font-semibold text-white">
+      <Box
+        position={"fixed"}
+        top={"0"}
+        w={"full"}
+        h={"20"}
+        rounded={"md"}
+        zIndex={"20"}
+        bg={"black"}
+        boxShadow={"dark-lg"}
+      >
+        <Box className="content">
+          <Box>
+            <Box position={"fixed"} top={"2"} left={"5"}>
+              <Link href="/">
+                <Image
+                  src={Pokeball}
+                  alt="Pokeball"
+                  width={"60"}
+                  height={"60"}
+                />
+              </Link>
+            </Box>
+            <Heading
+              as={"h1"}
+              textColor={"white"}
+              fontWeight={"semibold"}
+              w={"max"}
+              fontSize={"2xl"}
+              top={"5"}
+              left={"24"}
+              position={"fixed"}
+            >
               Pokedex
-            </h1>
-          </div>
-          <div className="list flex justify-end mr-14 mt-5">
+            </Heading>
+          </Box>
+          <Box
+            display={"flex"}
+            justifyContent={"end"}
+            marginRight={"14"}
+            marginTop={"5"}
+          >
             {props.hasButtons && (
               <Menu>
                 <MenuButton
@@ -55,21 +74,23 @@ function LandingNav(props: { hasButtons: boolean }) {
                   aria-label="Options"
                   icon={<HamburgerIcon />}
                   variant="outline"
-                  className="bg-white"
+                  bg={"white"}
                 />
-                <MenuList className="z-20">
+                <MenuList zIndex={"20"}>
                   <Link href={`http://localhost:3000/whosthatpokemon/`}>
                     <MenuItem>Whos That Pokemon</MenuItem>
                   </Link>
                   <Link href={`http://localhost:3000/pokedex/${id}`}>
-                    <MenuItem className="z-20">Random Pokemon</MenuItem>
+                    <MenuItem zIndex={"20"}>
+                      Random Pokemon
+                    </MenuItem>
                   </Link>
                 </MenuList>
               </Menu>
             )}
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Box>
+      </Box>
     </ChakraProvider>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 {
 }
-import { usePokemonById } from "@/getFunctions/getFunctions";
+import { usePokemonList } from "@/queries/getFunctions";
 import React, { useEffect, useState, useRef } from "react";
 import { startStarfieldAnimation } from "@/starfield";
 
@@ -42,7 +42,7 @@ function PokemonPage({ id }: PokemonProps) {
   const [spriteRender, setSpriteRender] = useState(``);
   const [background, setBackground] = useState<Array<string>>([]);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const { data: pokemonData, isLoading, isError } = usePokemonById(id);
+  const { data: pokemonData, isLoading, isError } = usePokemonList(id);
   const options = {
     responsive: true,
     plugins: {
@@ -171,20 +171,21 @@ function PokemonPage({ id }: PokemonProps) {
 
         <Grid gridTemplateColumns={["1fr", "1fr", "repeat(2, 1fr)"]} gap="8">
           <Box position="relative">
-            <Box className="cardSurface w-max">
+            <Box w={"max"}>
               <Box
                 as="img"
-                className={`rounded-md bg-slate-200 bg-opacity-60 w-[320px] h-[320px]`}
+                rounded={"md"}
+                bg={"rgba(226,232,240,0.8)"}
+                w={"320px"}
+                h={"320px"}
                 src={spriteRender}
-                height="300"
                 alt={pokeData?.name}
               />
             </Box>
 
             <Box position="absolute" top="-14.5%" left="-1%" m="2">
               <Button
-                className=" bg-slate-400 hover:bg-opacity-60"
-                bg="slate.200"
+                bg=" rgb(148 163 184)"
                 _hover={{ bgOpacity: "80" }}
                 fontWeight="semibold"
                 color="white"
@@ -202,8 +203,7 @@ function PokemonPage({ id }: PokemonProps) {
                 Original
               </Button>
               <Button
-                className=" bg-slate-400 hover:bg-opacity-60"
-                bg="slate.200"
+                bg=" rgb(148 163 184)"
                 fontWeight="semibold"
                 _hover={{ bgOpacity: "80" }}
                 color="white"
@@ -221,8 +221,7 @@ function PokemonPage({ id }: PokemonProps) {
                 Shiny
               </Button>
               <Button
-                className="bg-slate-400 hover:bg-opacity-60"
-                bg="slate.200"
+                bg=" rgb(148 163 184)"
                 fontWeight="semibold"
                 _hover={{ bgOpacity: "80" }}
                 color="white"
@@ -240,8 +239,7 @@ function PokemonPage({ id }: PokemonProps) {
                 Sprite
               </Button>
               <Button
-                className=" bg-slate-400 hover:bg-opacity-60"
-                bg="slate.200"
+                bg=" rgb(148 163 184)"
                 fontWeight="semibold"
                 _hover={{ bgOpacity: "80" }}
                 color="white"
@@ -263,7 +261,7 @@ function PokemonPage({ id }: PokemonProps) {
 
           <Box>
             <Box
-              className={`bg-opacity-60 p-4 rounded-lg shadow-lg ${background[0]}`}
+              className={`bg-opacity-60 ${background[0]}`}
               bg={background[0]}
               p="4"
               rounded="lg"
@@ -315,14 +313,11 @@ function PokemonPage({ id }: PokemonProps) {
                     ))}
                   </List>
                 </Box>
-
-                <Box>{/* Rest of the content */}</Box>
               </Grid>
             </Box>
 
             <Box
-              className={`mt-8 bg-opacity-60 p-4 rounded-lg shadow-lg ${background[1]}`}
-              bg={background[1]}
+              className={`bg-opacity-60 ${background[1]}`}
               mt="8"
               p="4"
               rounded="lg"
@@ -333,7 +328,7 @@ function PokemonPage({ id }: PokemonProps) {
               </Heading>
               <List display="flex">
                 {pokeData?.abilities.map((value, index) => (
-                  <ListItem className="mr-3" key={index}>
+                  <ListItem mr={"3"} key={index}>
                     {value.name}
                   </ListItem>
                 ))}
@@ -347,8 +342,7 @@ function PokemonPage({ id }: PokemonProps) {
         </Box>
 
         <Box
-          className={`mt-8 bg-opacity-60 p-4 rounded-lg shadow-lg ${background[1]}`}
-          bg={background[1]}
+          className={` bg-opacity-60 ${background[1]}`}
           mt="8"
           p="4"
           rounded="lg"
