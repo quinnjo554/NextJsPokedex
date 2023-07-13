@@ -14,7 +14,14 @@ function LandingPage() {
   return (
     <ChakraProvider>
       <LandingNav hasButtons={true}></LandingNav>
-      <Box className="hero fixed top-20 z-[-1] w-full h-full landingpage">
+      <Box
+        className="hero landingpage"
+        position={"fixed"}
+        top={"20"}
+        zIndex={"-1"}
+        w={"full"}
+        h={"full"}
+      >
         <Box className="card" id="pokecard">
           <Box className="card-content">
             <Heading className="title">Pokedex</Heading>
@@ -24,22 +31,38 @@ function LandingPage() {
             </ChakraLink>
           </Box>
         </Box>
-        <Box className="heroText fixed w-max left-[15%]">
-          <Box className="hero-content w-1/2">
+        <Box className="heroText" position={"fixed"} w={"max"} left={"15%"}>
+          <Box className="hero-content" w={"50%"}>
             <Heading
               as="h1"
               size="3xl"
-              className="text-white mb-3 font-semibold font-sans"
+              mb={"3"}
+              fontWeight={"semibold"}
+              textColor={"white"}
+              fontFamily={"sans-serif"}
             >
               Pokedex
             </Heading>
-            <Text size="lg" className="text-white text-lg font-medium">
+            <Text
+              size="lg"
+              textColor={"white"}
+              fontSize={"lg"}
+              fontWeight={"medium"}
+            >
               tenetur suscipit rem ducimus aliquam possimus nobis illo natus
               quos ad libero doloremque eligendi facere aperiam, optio fuga
               architecto atque officia molestias culpa nihil. Ducimus.
             </Text>
             <ChakraLink as={Link} href={"/pokedex/home/0"}>
-              <Button className="button text-white mt-4 shadow-md shadow-white hover:shadow-none ease-in-out">
+              <Button
+                textColor={"white"}
+                mt={"4"}
+                bg={"green.500"}
+                _hover={{ bg: "green.300" }}
+                animation={"ease-in-out"}
+                marginTop={"4"}
+                className="button"
+              >
                 Try For Free
               </Button>
             </ChakraLink>

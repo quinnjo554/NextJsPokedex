@@ -6,7 +6,6 @@ import {
   useAllPokemon,
 } from "@/getFunctions/getFunctions";
 import Pokeball from "../public/file-pokeball-png-0.png";
-import PokemonScreen from "../public/pokémon-minimalism-pixel-art-nintendo-wallpaper-preview.jpg";
 import {
   ChakraProvider,
   Box,
@@ -15,6 +14,7 @@ import {
   Grid,
   Link,
   List,
+  Text,
   ListItem,
   UnorderedList,
   Flex,
@@ -85,16 +85,28 @@ function PokemonList({ id }: PokemonProps) {
 
   if (isLoading) {
     return (
-      <div className="animate-spin grid justify-center relative top-1/2 text-3xl ">
+      <Box
+        display={"grid"}
+        justifyContent={"center"}
+        position={"relative"}
+        top={"50%"}
+        fontSize={"3xl"}
+        className="pokeballLoading"
+      >
         <Image src={Pokeball} alt="Pokeball" width={110} height={110}></Image>
-      </div>
+      </Box>
     );
   }
 
   return (
     <ChakraProvider>
       <Box mt={16} p={10}>
-        <InputGroup className="fixed left-[40%] w-[200px] inputMobile">
+        <InputGroup
+          position={"absolute"}
+          left={"40%"}
+          w={"200px"}
+          className="inputMobile"
+        >
           <Input
             variant="filled"
             placeholder="Search For Pokemon"
@@ -104,7 +116,10 @@ function PokemonList({ id }: PokemonProps) {
         </InputGroup>
         {showFilter && (
           <Box
-            className="fixed left-[40%] max-h-24 inputMobile"
+            className=" inputMobile"
+            position={"fixed"}
+            left={"40%"}
+            maxHeight={"24"}
             bg="white"
             border="1px"
             borderColor="gray.300"
@@ -120,16 +135,24 @@ function PokemonList({ id }: PokemonProps) {
                   href={`http://localhost:3000/pokedex/${value.id}`}
                   key={index}
                 >
-                  <ListItem className="flex items-center px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                    <Image
-                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${value.id}.png`}
-                      alt={value.name}
-                      width={22}
-                      height={22}
-                      className="mr-2"
-                    />
-                    <Box className="flex items-center">
-                      <span className="mr-2">{value.name}</span>
+                  <ListItem
+                    display={"flex"}
+                    alignItems={"center"}
+                    px={"4"}
+                    py={"2"}
+                    _hover={{ bg: "gray.100" }}
+                    cursor={"pointer"}
+                  >
+                    <Box marginRight={"2"}>
+                      <Image
+                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${value.id}.png`}
+                        alt={value.name}
+                        width={22}
+                        height={22}
+                      />
+                    </Box>
+                    <Box display={"flex"} alignItems={"center"}>
+                      <Text marginRight={"2"}>{value.name}</Text>
                       <Flex>
                         {value.types.map((type, typeIndex) => (
                           <Box
@@ -162,18 +185,19 @@ function PokemonList({ id }: PokemonProps) {
           )}`}
           className="arrow-link left"
         >
-          <Image
-            src={Arrow}
-            alt="Pokeball"
-            width={70}
-            height={70}
-            className="bg-white rounded-full transition-all ease-in-out hover:bg-transparent"
-            onClick={() => {
-              setPage((prevPageNum) =>
-                getNextPageNumber(prevPageNum, -1, 0, totalPages)
-              );
-            }}
-          />
+          <Box>
+            <Image
+              src={Arrow}
+              alt="Pokeball"
+              width={70}
+              height={70}
+              onClick={() => {
+                setPage((prevPageNum) =>
+                  getNextPageNumber(prevPageNum, -1, 0, totalPages)
+                );
+              }}
+            />
+          </Box>
         </Link>
         <Link
           href={`http://localhost:3000/pokedex/home/${getNextPageNumber(
@@ -189,7 +213,6 @@ function PokemonList({ id }: PokemonProps) {
             alt="Pokeball"
             width={70}
             height={70}
-            className="bg-white rounded-full rotate-180 transition-all ease-in-out hover:bg-transparent"
             onClick={() => {
               setPage((prevPageNum) =>
                 getNextPageNumber(prevPageNum, 1, 0, totalPages)
@@ -202,6 +225,7 @@ function PokemonList({ id }: PokemonProps) {
           templateColumns="repeat(auto-fill, minmax(200px, 1fr))"
           gap={3}
           p={6}
+          marginTop={"5"}
         >
           {pokemon.map((value, index) => {
             const types = value.types.map((type) => {
@@ -210,8 +234,14 @@ function PokemonList({ id }: PokemonProps) {
 
               return (
                 <ListItem
+                  display={"flex"}
+                  px={"2"}
+                  py={"0"}
+                  mr={"2"}
+                  rounded={"sm"}
+                  textAlign={"center"}
                   key={index}
-                  className={`flex px-2 py-0 mr-2 rounded-sm ${backgroundColor} text-center`}
+                  className={` ${backgroundColor}`}
                   fontSize="sm"
                 >
                   {type.name}
@@ -226,28 +256,39 @@ function PokemonList({ id }: PokemonProps) {
                 _hover={{ textDecoration: "none" }}
               >
                 <Box
-                  className="pokemon-card w-48 p-2 grid rounded-md mt-3 transition-all ease-in-out bg-black bg-opacity-70 text-white"
                   borderRadius="md"
+                  w={"48"}
+                  p={"2"}
+                  display={"grid"}
+                  rounded={"md"}
+                  mt={"3"}
+                  transitionProperty={"all"}
+                  transitionTimingFunction={"ease-in-out"}
+                  bg="rgba(0,0,0,0.7)"
+                  textColor={"white"}
                   _hover={{
                     transform: "scale(1.05)",
                     transition: "transform 0.3s ease-in-out",
                   }}
                 >
-                  <UnorderedList listStyleType="none">
+                  <UnorderedList textAlign={"center"} listStyleType="none">
                     <ListItem
-                      className="text-center bg-slate-500 rounded-md"
+                      rounded={"md"}
+                      textAlign={"center"}
+                      bg={"rgb(100 116 139)"}
                       px={2}
                     >
                       {value.name}
                     </ListItem>
                   </UnorderedList>
-                  <Image
-                    className="mx-auto"
-                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${value.id}.png`}
-                    alt=""
-                    width="90"
-                    height="110"
-                  />
+                  <Box mx={"auto"}>
+                    <Image
+                      src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${value.id}.png`}
+                      alt=""
+                      width="90"
+                      height="110"
+                    />
+                  </Box>
                   <Flex justifyContent="space-between">
                     <Box># {value.id}</Box>
                     <List display="flex">{types}</List>
