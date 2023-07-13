@@ -25,6 +25,7 @@
   }
 }
 
+
 .whosThatPokemon{
   background-image: url("../public/maxresdefault.jpg");
   background-size: cover;
@@ -39,8 +40,8 @@
 }
 
 .pokedex{
-  background-image: url("../public/tumblr_pev0myaFLh1sqpyoco1_1280.jpeg");
-  background-size: cover;
+  background-image: url("../public/3d-abstract-wave-pattern-background.jpg");
+  background-size: contain;
   height: 100%;
 }
 

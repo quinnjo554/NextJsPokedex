@@ -11,7 +11,7 @@ import {
   ListItem,
   Flex,
 } from "@chakra-ui/react";
-import { useAllPokemon, useRandomPokemon } from "@/getFunctions/getFunctions";
+import { useAllPokemon, useRandomPokemon } from "@/queries/getFunctions";
 
 function WhosThatPokemon() {
   const [inputValue, setInputValue] = useState("");

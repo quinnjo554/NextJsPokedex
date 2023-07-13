@@ -1,35 +1,35 @@
 "use client";
 import React, { ChangeEvent, useEffect, useState } from "react";
-import {
-  usePagePokemon,
-  getNextPageNumber,
-  useAllPokemon,
-} from "@/getFunctions/getFunctions";
-import Pokeball from "../public/file-pokeball-png-0.png";
+import { useAllPokemon, usePokemonInfinite } from "@/queries/getFunctions";
+import Pikachu from "../public/pikachu_run_avatar_by_thefandomdude_d809mbc (1).gif";
 import {
   ChakraProvider,
   Box,
   Input,
+  Button,
   InputGroup,
+  InputRightElement,
   Grid,
   Link,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton,
   List,
   Text,
   ListItem,
   UnorderedList,
   Flex,
 } from "@chakra-ui/react";
-import Arrow from "../public/icons8-back-arrow-100.png";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import Image from "next/image";
 
 function PokemonList({ id }: PokemonProps) {
-  const [pokemon, setPokemon] = useState<Array<pokemon>>([]);
   const [allPokemon, setAllPokemon] = useState<Array<pokemon>>([]);
-  const [page, setPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
   const [input, setInput] = useState("");
   const [showFilter, setShowFilter] = useState(false);
-  const { data, isLoading, isError } = usePagePokemon(id);
+  const [searchFilter, setSearchFilter] = useState("");
   const {
     data: allPokemonData,
     isLoading: allPokemonLoading,
@@ -56,17 +56,33 @@ function PokemonList({ id }: PokemonProps) {
     fairy: "bg-pink-300",
   };
 
-  const filteredSearch = allPokemon.filter((item) =>
-    item.name.toLowerCase().includes(input.toLowerCase())
+  const {
+    data: infiniteData,
+    isLoading: isInfinteLoading,
+    fetchNextPage,
+  } = usePokemonInfinite();
+
+  const pokemon: pokemon[] | undefined = infiniteData?.pages.flatMap(
+    ({ content }) => content
   );
 
-  useEffect(() => {
-    if (data) {
-      setPokemon(data["content"]);
-      setTotalPages(data["totalPages"]);
-      setPage(Number(id));
+  const filteredSearch = allPokemon.filter((item) => {
+    const lowercaseName = item.name.toLowerCase();
+    const lowercaseInput = input.toLowerCase();
+
+    if (searchFilter === "Type") {
+      return item.types.some((type) =>
+        type.name.toLowerCase().includes(lowercaseInput)
+      );
     }
-  }, [data]);
+
+    if (searchFilter === "Ability") {
+      return item.abilities.some((ability) =>
+        ability.name.toLowerCase().includes(lowercaseInput)
+      );
+    }
+    return lowercaseName.includes(lowercaseInput);
+  });
 
   useEffect(() => {
     if (allPokemonData) {
@@ -83,8 +99,9 @@ function PokemonList({ id }: PokemonProps) {
     }
   }
 
-  if (isLoading) {
+  if (isInfinteLoading) {
     return (
+
       <Box
         display={"grid"}
         justifyContent={"center"}
@@ -108,11 +125,37 @@ function PokemonList({ id }: PokemonProps) {
           className="inputMobile"
         >
           <Input
+            data-testid="search-bar"
             variant="filled"
             placeholder="Search For Pokemon"
             w={300}
             onChange={handleInputChange}
           />
+          <InputRightElement className="relative left-[15rem]">
+            <Menu>
+              <MenuButton
+                as={IconButton}
+                aria-label="Options"
+                icon={<HamburgerIcon />}
+                variant="outline"
+                className="bg-white"
+              />
+              <MenuList className="">
+                <MenuItem value="Type" onClick={() => setSearchFilter("Type")}>
+                  Type
+                </MenuItem>
+                <MenuItem
+                  value="Ability"
+                  onClick={() => setSearchFilter("Ability")}
+                >
+                  Ability
+                </MenuItem>
+                <MenuItem value="Name" onClick={() => setSearchFilter("Name")}>
+                  Name
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          </InputRightElement>
         </InputGroup>
         {showFilter && (
           <Box
@@ -162,8 +205,8 @@ function PokemonList({ id }: PokemonProps) {
                             fontSize="xs"
                             rounded="full"
                             color="white"
-                            bg={typeColors[type.name]}
                             mr={1}
+                            className={`${typeColors[type.name]}`}
                           >
                             {type.name}
                           </Box>
@@ -227,13 +270,14 @@ function PokemonList({ id }: PokemonProps) {
           p={6}
           marginTop={"5"}
         >
-          {pokemon.map((value, index) => {
+          {pokemon?.map((value, index) => {
             const types = value.types.map((type) => {
               const typeName = type.name.toLowerCase();
               const backgroundColor = typeColors[typeName] || "bg-gray-300";
 
               return (
                 <ListItem
+
                   display={"flex"}
                   px={"2"}
                   py={"0"}
@@ -277,6 +321,7 @@ function PokemonList({ id }: PokemonProps) {
                       textAlign={"center"}
                       bg={"rgb(100 116 139)"}
                       px={2}
+                      key={value.id}
                     >
                       {value.name}
                     </ListItem>
@@ -298,6 +343,9 @@ function PokemonList({ id }: PokemonProps) {
             );
           })}
         </Grid>
+        <Box className="text-center mt-4">
+          <Button onClick={() => fetchNextPage()}>Next</Button>
+        </Box>
       </Box>
     </ChakraProvider>
   );
